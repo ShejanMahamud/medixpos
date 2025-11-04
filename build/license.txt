@@ -1,0 +1,50 @@
+END USER LICENSE AGREEMENT
+
+MedixPOS - Professional Pharmacy Management System
+
+Copyright (c) 2025 Johuniq. All rights reserved.
+
+IMPORTANT - READ CAREFULLY: This End User License Agreement ("AGREEMENT") is a legal agreement between you (either an individual or a single entity) and Johuniq for the MedixPOS software product, which includes computer software and may include associated media, printed materials, and "online" or electronic documentation ("SOFTWARE PRODUCT").
+
+By installing, copying, or otherwise using the SOFTWARE PRODUCT, you agree to be bound by the terms of this AGREEMENT. If you do not agree to the terms of this AGREEMENT, do not install or use the SOFTWARE PRODUCT.
+
+1. GRANT OF LICENSE
+This AGREEMENT grants you the following rights:
+- Installation and Use: You may install and use the SOFTWARE PRODUCT on a single computer.
+- Backup Copy: You may make one backup copy of the SOFTWARE PRODUCT for archival purposes.
+
+2. DESCRIPTION OF OTHER RIGHTS AND LIMITATIONS
+- Limitations on Reverse Engineering, Decompilation, and Disassembly: You may not reverse engineer, decompile, or disassemble the SOFTWARE PRODUCT.
+- Separation of Components: The SOFTWARE PRODUCT is licensed as a single product. Its component parts may not be separated for use on more than one computer.
+- Rental: You may not rent, lease, or lend the SOFTWARE PRODUCT.
+- Support Services: Johuniq may provide you with support services related to the SOFTWARE PRODUCT. Use of Support Services is governed by Johuniq policies and programs.
+- Software Transfer: You may permanently transfer all of your rights under this AGREEMENT, provided you retain no copies, you transfer all of the SOFTWARE PRODUCT, and the recipient agrees to the terms of this AGREEMENT.
+- Termination: Without prejudice to any other rights, Johuniq may terminate this AGREEMENT if you fail to comply with the terms and conditions of this AGREEMENT.
+
+3. COPYRIGHT
+All title and copyrights in and to the SOFTWARE PRODUCT (including but not limited to any images, photographs, animations, video, audio, music, text, and "applets" incorporated into the SOFTWARE PRODUCT), the accompanying printed materials, and any copies of the SOFTWARE PRODUCT are owned by Johuniq. The SOFTWARE PRODUCT is protected by copyright laws and international treaty provisions.
+
+4. LIMITED WARRANTY
+Johuniq warrants that the SOFTWARE PRODUCT will perform substantially in accordance with the accompanying written materials for a period of ninety (90) days from the date of receipt.
+
+5. CUSTOMER REMEDIES
+Johuniq's entire liability and your exclusive remedy shall be, at Johuniq's option, either (a) return of the price paid, or (b) repair or replacement of the SOFTWARE PRODUCT that does not meet Johuniq's Limited Warranty.
+
+6. NO OTHER WARRANTIES
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, JOHUNIQ DISCLAIMS ALL OTHER WARRANTIES, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+
+7. NO LIABILITY FOR CONSEQUENTIAL DAMAGES
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL JOHUNIQ BE LIABLE FOR ANY SPECIAL, INCIDENTAL, INDIRECT, OR CONSEQUENTIAL DAMAGES WHATSOEVER.
+
+8. DATA PROTECTION
+The SOFTWARE PRODUCT may collect and store data locally on your computer. You are responsible for ensuring compliance with applicable data protection regulations in your jurisdiction.
+
+9. PHARMACY COMPLIANCE
+You acknowledge that you are responsible for ensuring that your use of the SOFTWARE PRODUCT complies with all applicable pharmacy laws, regulations, and professional standards in your jurisdiction.
+
+10. UPDATES AND MAINTENANCE
+Johuniq may provide updates, patches, and enhancements to the SOFTWARE PRODUCT. Such updates will be governed by this AGREEMENT unless separate terms are provided.
+
+For support and inquiries, please visit: https://johuniq.xyz
+
+Should you have any questions concerning this AGREEMENT, or if you desire to contact Johuniq for any reason, please visit our website.
