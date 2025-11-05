@@ -5,4 +5,51 @@ out
 .eslintcache
 *.log*
 polar.txt
+
+# Environment and Secrets
 .env
+.env.*
+!.env.example
+
+# Code Signing Certificates
+*.pfx
+*.p12
+*.pem
+*.key
+*.cer
+*.crt
+
+# License and Activation
+*.license
+*.lic
+activation-keys.json
+license-keys.txt
+
+# Build Outputs
+*.exe
+*.dmg
+*.AppImage
+*.deb
+*.rpm
+*.snap
+
+# Database
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+# Sensitive Config
+config.production.json
+secrets.json
+
+# macOS
+*.DS_Store
+.AppleDouble
+.LSOverride
+add-copyright.js
+obfuscate.js
+# Windows
+Thumbs.db
+Desktop.ini

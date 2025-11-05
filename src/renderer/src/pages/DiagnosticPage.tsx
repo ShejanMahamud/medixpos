@@ -1,3 +1,9 @@
+/**
+ * Copyright (c) 2025 Johuniq(https://johuniq.tech). All rights reserved.
+ * Licensed under Proprietary License - See LICENSE file
+ * Unauthorized use, copying, or distribution is strictly prohibited.
+ */
+
 import { useEffect, useState } from 'react'
 
 export default function DiagnosticPage(): React.JSX.Element {

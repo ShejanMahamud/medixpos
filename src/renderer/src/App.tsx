@@ -1,3 +1,9 @@
+/**
+ * Copyright (c) 2025 Johuniq(https://johuniq.tech). All rights reserved.
+ * Licensed under Proprietary License - See LICENSE file
+ * Unauthorized use, copying, or distribution is strictly prohibited.
+ */
+
 import { useEffect } from 'react'
 import { Toaster } from 'react-hot-toast'
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'

@@ -1,3 +1,9 @@
+/**
+ * Copyright (c) 2025 Johuniq(https://johuniq.tech). All rights reserved.
+ * Licensed under Proprietary License - See LICENSE file
+ * Unauthorized use, copying, or distribution is strictly prohibited.
+ */
+
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import ErrorIcon from '@mui/icons-material/Error'
 import WarningIcon from '@mui/icons-material/Warning'

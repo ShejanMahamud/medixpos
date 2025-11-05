@@ -1,3 +1,9 @@
+/**
+ * Copyright (c) 2025 Johuniq(https://johuniq.tech). All rights reserved.
+ * Licensed under Proprietary License - See LICENSE file
+ * Unauthorized use, copying, or distribution is strictly prohibited.
+ */
+
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
 import { app, BrowserWindow, dialog, ipcMain, nativeImage, shell } from 'electron'
 import fs from 'fs'

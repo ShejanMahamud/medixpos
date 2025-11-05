@@ -1,4 +1,10 @@
 /**
+ * Copyright (c) 2025 Johuniq(https://johuniq.tech). All rights reserved.
+ * Licensed under Proprietary License - See LICENSE file
+ * Unauthorized use, copying, or distribution is strictly prohibited.
+ */
+
+/**
  * Main IPC Database Handlers Registry
  *
  * This file serves as the central registration point for all database-related IPC handlers.

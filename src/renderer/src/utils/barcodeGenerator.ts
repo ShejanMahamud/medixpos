@@ -1,4 +1,10 @@
 /**
+ * Copyright (c) 2025 Johuniq(https://johuniq.tech). All rights reserved.
+ * Licensed under Proprietary License - See LICENSE file
+ * Unauthorized use, copying, or distribution is strictly prohibited.
+ */
+
+/**
  * Generates a unique barcode using EAN-13 format
  * @returns A 13-digit barcode string
  */

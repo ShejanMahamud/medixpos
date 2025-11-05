@@ -1,3 +1,9 @@
+/**
+ * Copyright (c) 2025 Johuniq(https://johuniq.tech). All rights reserved.
+ * Licensed under Proprietary License - See LICENSE file
+ * Unauthorized use, copying, or distribution is strictly prohibited.
+ */
+
 import { Add, BarChart, PersonAdd, ShoppingCart } from '@mui/icons-material'
 import { Avatar, Box, ButtonBase, Card, CardContent, Typography } from '@mui/material'
 import { Link } from 'react-router-dom'

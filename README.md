@@ -163,17 +163,30 @@ Have ideas for new features? Open an issue with the "Feature Request" tag.
 
 **Commercial License** - This is proprietary, licensed software.
 
+**IMPORTANT NOTICE:**
+This repository contains proprietary source code. While the code is visible on GitHub, it is NOT open source and NOT free to use. All rights are reserved by Johuniq.
+
 ### Terms
 
-- Licensed for commercial use
-- Per-installation licensing
-- Source code access for licensed users
-- No redistribution without permission
-- Technical support included
+- Licensed for commercial use only with valid license key
+- Per-installation licensing with hardware binding
+- Unauthorized use, copying, or distribution is prohibited
+- Source code access does not grant usage rights
+- Violators will be prosecuted under copyright law
+
+### Restrictions
+
+- You may NOT use this software without a valid license
+- You may NOT remove or modify license validation
+- You may NOT redistribute or resell this software
+- You may NOT create derivative works
+- You may NOT reverse engineer the compiled application
 
 ### Getting a License
 
 **Contact**: support@johuniq.tech
+
+**Piracy is a crime.** We actively monitor for unauthorized use.
 
 <!-- ## About
 

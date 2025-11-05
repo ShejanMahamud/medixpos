@@ -1,3 +1,9 @@
+/**
+ * Copyright (c) 2025 Johuniq(https://johuniq.tech). All rights reserved.
+ * Licensed under Proprietary License - See LICENSE file
+ * Unauthorized use, copying, or distribution is strictly prohibited.
+ */
+
 import { Box, Button, Card, TextField, Typography } from '@mui/material'
 import { BankAccount, Customer } from '../../types/pos'
 import CashInput from './CashInput'

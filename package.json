@@ -4,7 +4,7 @@
   "description": "Professional Pharmacy Management System - Licensed POS Software",
   "main": "./out/main/index.js",
   "author": "Johuniq",
-  "homepage": "https://johuniq.xyz",
+  "homepage": "https://johuniq.tech",
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint --cache .",

@@ -1,3 +1,9 @@
+/**
+ * Copyright (c) 2025 Johuniq(https://johuniq.tech). All rights reserved.
+ * Licensed under Proprietary License - See LICENSE file
+ * Unauthorized use, copying, or distribution is strictly prohibited.
+ */
+
 import AddIcon from '@mui/icons-material/Add'
 import CategoryIcon from '@mui/icons-material/Category'
 import UploadIcon from '@mui/icons-material/Upload'

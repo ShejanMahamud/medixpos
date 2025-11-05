@@ -1,3 +1,9 @@
+/**
+ * Copyright (c) 2025 Johuniq(https://johuniq.tech). All rights reserved.
+ * Licensed under Proprietary License - See LICENSE file
+ * Unauthorized use, copying, or distribution is strictly prohibited.
+ */
+
 import { Add, Delete, Remove } from '@mui/icons-material'
 import { Box, Button, Card, IconButton, TextField, Typography } from '@mui/material'
 import { CartItem } from '../../types/pos'
