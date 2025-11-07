@@ -185,6 +185,7 @@ export default function Inventory(): React.JSX.Element {
       {/* Page Header */}
       <Box
         sx={{ mb: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}
+        data-tour="inventory-header"
       >
         <Box>
           <Typography variant="h4" component="h1" fontWeight="bold" gutterBottom>
@@ -197,32 +198,38 @@ export default function Inventory(): React.JSX.Element {
       </Box>
 
       {/* Stats Cards */}
-      <InventoryStats
-        totalItems={inventoryWithProducts.length}
-        lowStockCount={lowStockCount}
-        outOfStockCount={outOfStockCount}
-        totalValue={totalValue}
-        currencySymbol={getCurrencySymbol()}
-      />
+      <div data-tour="inventory-stats">
+        <InventoryStats
+          totalItems={inventoryWithProducts.length}
+          lowStockCount={lowStockCount}
+          outOfStockCount={outOfStockCount}
+          totalValue={totalValue}
+          currencySymbol={getCurrencySymbol()}
+        />
+      </div>
 
       {/* Action Bar */}
-      <InventoryFilters
-        searchTerm={searchTerm}
-        filterType={filterType}
-        onSearchChange={handleSearchChange}
-        onFilterChange={handleFilterChange}
-        onAdjustStock={() => setShowModal(true)}
-      />
+      <div data-tour="inventory-filters">
+        <InventoryFilters
+          searchTerm={searchTerm}
+          filterType={filterType}
+          onSearchChange={handleSearchChange}
+          onFilterChange={handleFilterChange}
+          onAdjustStock={() => setShowModal(true)}
+        />
+      </div>
 
       {/* Inventory Table */}
-      <InventoryTable
-        inventory={filteredInventory}
-        categories={categories}
-        loading={loading}
-        currencySymbol={getCurrencySymbol()}
-        onEdit={handleEdit}
-        onViewDetails={handleViewDetails}
-      />
+      <div data-tour="inventory-table">
+        <InventoryTable
+          inventory={filteredInventory}
+          categories={categories}
+          loading={loading}
+          currencySymbol={getCurrencySymbol()}
+          onEdit={handleEdit}
+          onViewDetails={handleViewDetails}
+        />
+      </div>
 
       {/* Stock Adjustment Modal */}
       <StockAdjustmentModal

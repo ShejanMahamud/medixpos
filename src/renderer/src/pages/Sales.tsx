@@ -475,6 +475,7 @@ export default function Sales(): React.JSX.Element {
       {/* Page Header */}
       <Box
         sx={{ mb: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}
+        data-tour="sales-header"
       >
         <Box>
           <Typography variant="h4" component="h1" fontWeight="bold" gutterBottom>
@@ -487,26 +488,32 @@ export default function Sales(): React.JSX.Element {
       </Box>
 
       {/* Stats Cards */}
-      <SalesStats sales={filteredSales} currencySymbol={getCurrencySymbol()} />
+      <div data-tour="sales-stats">
+        <SalesStats sales={filteredSales} currencySymbol={getCurrencySymbol()} />
+      </div>
 
       {/* Filters */}
-      <SalesFilters
-        searchTerm={searchTerm}
-        statusFilter={statusFilter}
-        paymentFilter={paymentFilter}
-        onSearchChange={setSearchTerm}
-        onStatusFilterChange={setStatusFilter}
-        onPaymentFilterChange={setPaymentFilter}
-        onReturnClick={() => setShowReturnModal(true)}
-      />
+      <div data-tour="sales-filters">
+        <SalesFilters
+          searchTerm={searchTerm}
+          statusFilter={statusFilter}
+          paymentFilter={paymentFilter}
+          onSearchChange={setSearchTerm}
+          onStatusFilterChange={setStatusFilter}
+          onPaymentFilterChange={setPaymentFilter}
+          onReturnClick={() => setShowReturnModal(true)}
+        />
+      </div>
 
       {/* Sales Table */}
-      <SalesTable
-        sales={filteredSales}
-        currencySymbol={getCurrencySymbol()}
-        onViewDetails={viewSaleDetails}
-        onPrint={handlePrint}
-      />
+      <div data-tour="sales-table">
+        <SalesTable
+          sales={filteredSales}
+          currencySymbol={getCurrencySymbol()}
+          onViewDetails={viewSaleDetails}
+          onPrint={handlePrint}
+        />
+      </div>
 
       {/* Sale Details Modal */}
       <SaleDetailsModal

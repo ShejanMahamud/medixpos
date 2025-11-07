@@ -35,10 +35,12 @@ import {
   Typography
 } from '@mui/material'
 import { Link, Outlet, useLocation } from 'react-router-dom'
+
 import { usePermissions } from '../hooks/usePermissions'
 import { useAuthStore } from '../store/authStore'
 import { useSettingsStore } from '../store/settingsStore'
 import { Permission } from '../utils/permissions'
+import TourButton from './TourButton'
 
 const drawerWidth = 260
 
@@ -58,31 +60,36 @@ export default function Layout(): React.JSX.Element {
       name: 'Dashboard',
       path: '/',
       permission: 'view_dashboard' as Permission,
-      icon: <Dashboard />
+      icon: <Dashboard />,
+      tourId: 'dashboard-nav'
     },
     {
       name: 'POS',
       path: '/pos',
       permission: 'create_sale' as Permission,
-      icon: <ShoppingCart />
+      icon: <ShoppingCart />,
+      tourId: 'pos-nav'
     },
     {
       name: 'Products',
       path: '/products',
       permission: 'view_products' as Permission,
-      icon: <ViewInAr />
+      icon: <ViewInAr />,
+      tourId: 'products-nav'
     },
     {
       name: 'Inventory',
       path: '/inventory',
       permission: 'view_inventory' as Permission,
-      icon: <Inventory />
+      icon: <Inventory />,
+      tourId: 'inventory-nav'
     },
     {
       name: 'Sales',
       path: '/sales',
       permission: 'view_sales' as Permission,
-      icon: <TrendingUp />
+      icon: <TrendingUp />,
+      tourId: 'sales-nav'
     },
     {
       name: 'Purchases',
@@ -136,7 +143,8 @@ export default function Layout(): React.JSX.Element {
       name: 'Settings',
       path: '/settings',
       permission: 'view_settings' as Permission,
-      icon: <Settings />
+      icon: <Settings />,
+      tourId: 'settings-nav'
     }
   ]
 
@@ -161,7 +169,7 @@ export default function Layout(): React.JSX.Element {
         }}
       >
         {/* Logo Section */}
-        <Box sx={{ p: 2.5, borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+        <Box sx={{ p: 2.5, borderBottom: '1px solid rgba(255,255,255,0.1)' }} data-tour="logo">
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, px: 0.5 }}>
             <Avatar
               sx={{
@@ -200,6 +208,7 @@ export default function Layout(): React.JSX.Element {
             scrollbarWidth: 'none',
             msOverflowStyle: 'none'
           }}
+          data-tour="navigation"
         >
           {navigation.map((item) => (
             <ListItem key={item.path} disablePadding sx={{ mb: 0.5 }}>
@@ -207,6 +216,7 @@ export default function Layout(): React.JSX.Element {
                 component={Link}
                 to={item.path}
                 selected={isActive(item.path)}
+                data-tour={item.tourId}
                 sx={{
                   borderRadius: 2,
                   py: 1.25,
@@ -248,7 +258,7 @@ export default function Layout(): React.JSX.Element {
         </List>
 
         {/* User Section */}
-        <Box sx={{ p: 2, borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+        <Box sx={{ p: 2, borderTop: '1px solid rgba(255,255,255,0.1)' }} data-tour="user-profile">
           <Paper
             elevation={0}
             sx={{
@@ -290,6 +300,12 @@ export default function Layout(): React.JSX.Element {
               </Typography>
             </Box>
           </Paper>
+
+          {/* Tour Button */}
+          <Box sx={{ mb: 1 }}>
+            <TourButton variant="button" size="small" />
+          </Box>
+
           <Button
             fullWidth
             variant="contained"

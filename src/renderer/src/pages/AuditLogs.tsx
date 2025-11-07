@@ -139,7 +139,7 @@ export default function AuditLogs(): React.JSX.Element {
   return (
     <Container maxWidth="xl" sx={{ py: 4 }}>
       {/* Page Header */}
-      <Box sx={{ mb: 4 }}>
+      <Box sx={{ mb: 4 }} data-tour="audit-header">
         <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'text.primary' }}>
           Audit Logs
         </Typography>
@@ -149,26 +149,32 @@ export default function AuditLogs(): React.JSX.Element {
       </Box>
 
       {/* Stats Cards */}
-      <AuditLogStats stats={stats} />
+      <div data-tour="audit-stats">
+        <AuditLogStats stats={stats} />
+      </div>
 
       {/* Filters */}
-      <AuditLogFilters
-        startDate={startDate}
-        endDate={endDate}
-        actionFilter={actionFilter}
-        entityTypeFilter={entityTypeFilter}
-        searchUsername={searchUsername}
-        onStartDateChange={setStartDate}
-        onEndDateChange={setEndDate}
-        onActionFilterChange={setActionFilter}
-        onEntityTypeFilterChange={setEntityTypeFilter}
-        onSearchUsernameChange={setSearchUsername}
-        onApplyFilters={handleApplyFilters}
-        onClearFilters={handleClearFilters}
-      />
+      <div data-tour="audit-filters">
+        <AuditLogFilters
+          startDate={startDate}
+          endDate={endDate}
+          actionFilter={actionFilter}
+          entityTypeFilter={entityTypeFilter}
+          searchUsername={searchUsername}
+          onStartDateChange={setStartDate}
+          onEndDateChange={setEndDate}
+          onActionFilterChange={setActionFilter}
+          onEntityTypeFilterChange={setEntityTypeFilter}
+          onSearchUsernameChange={setSearchUsername}
+          onApplyFilters={handleApplyFilters}
+          onClearFilters={handleClearFilters}
+        />
+      </div>
 
       {/* Audit Logs Table */}
-      <AuditLogsTable logs={filteredLogs} loading={loading} onViewDetails={viewDetails} />
+      <div data-tour="audit-table">
+        <AuditLogsTable logs={filteredLogs} loading={loading} onViewDetails={viewDetails} />
+      </div>
 
       {/* Details Modal */}
       <AuditLogDetailsModal

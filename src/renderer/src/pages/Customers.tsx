@@ -4,7 +4,7 @@
  * Unauthorized use, copying, or distribution is strictly prohibited.
  */
 
-﻿import { Container } from '@mui/material'
+import { Container } from '@mui/material'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import CustomerFilters from '../components/customers/CustomerFilters'
@@ -173,29 +173,37 @@ export default function Customers(): React.JSX.Element {
 
   return (
     <Container maxWidth="xl" sx={{ py: 4, bgcolor: 'grey.100', minHeight: '100vh' }}>
-      <CustomerHeader />
+      <div data-tour="customers-header">
+        <CustomerHeader />
+      </div>
 
-      <CustomerStats
-        totalCustomers={totalCustomers}
-        activeCustomers={activeCustomers}
-        totalLoyaltyPoints={totalLoyaltyPoints}
-        totalPurchaseValue={totalPurchaseValue}
-        currencySymbol={getCurrencySymbol()}
-      />
+      <div data-tour="customers-stats">
+        <CustomerStats
+          totalCustomers={totalCustomers}
+          activeCustomers={activeCustomers}
+          totalLoyaltyPoints={totalLoyaltyPoints}
+          totalPurchaseValue={totalPurchaseValue}
+          currencySymbol={getCurrencySymbol()}
+        />
+      </div>
 
-      <CustomerFilters
-        searchTerm={searchTerm}
-        statusFilter={statusFilter}
-        onSearchChange={setSearchTerm}
-        onStatusFilterChange={setStatusFilter}
-        onAddClick={() => setShowModal(true)}
-      />
+      <div data-tour="customers-filters">
+        <CustomerFilters
+          searchTerm={searchTerm}
+          statusFilter={statusFilter}
+          onSearchChange={setSearchTerm}
+          onStatusFilterChange={setStatusFilter}
+          onAddClick={() => setShowModal(true)}
+        />
+      </div>
 
-      <CustomersTable
-        customers={filteredCustomers}
-        currencySymbol={getCurrencySymbol()}
-        onEdit={handleEdit}
-      />
+      <div data-tour="customers-table">
+        <CustomersTable
+          customers={filteredCustomers}
+          currencySymbol={getCurrencySymbol()}
+          onEdit={handleEdit}
+        />
+      </div>
 
       <CustomerFormModal
         isOpen={showModal}

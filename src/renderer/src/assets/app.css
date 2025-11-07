@@ -1,10 +1,19 @@
 @import 'tailwindcss';
-@utility no-scrollbar {
-  @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
+@import './driver-tour.css';
+.no-scrollbar {
+  scrollbar-width: none;
 }
 
-@utility scrollbar-hide {
-  @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
 * {
   box-sizing: border-box;

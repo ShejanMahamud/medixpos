@@ -215,24 +215,32 @@ export default function BankAccounts(): React.JSX.Element {
 
   return (
     <Container maxWidth="xl" sx={{ py: 4, bgcolor: 'grey.100', minHeight: '100vh' }}>
-      <BankAccountHeader />
+      <div data-tour="bank-accounts-header">
+        <BankAccountHeader />
+      </div>
 
-      <BankAccountStats accounts={accounts} />
+      <div data-tour="bank-accounts-stats">
+        <BankAccountStats accounts={accounts} />
+      </div>
 
-      <BankAccountSearchBar
-        searchTerm={searchTerm}
-        onSearchChange={handleSearchChange}
-        onAddClick={() => setShowModal(true)}
-      />
+      <div data-tour="bank-accounts-search">
+        <BankAccountSearchBar
+          searchTerm={searchTerm}
+          onSearchChange={handleSearchChange}
+          onAddClick={() => setShowModal(true)}
+        />
+      </div>
 
-      <BankAccountsTable
-        accounts={filteredAccounts}
-        loading={loading}
-        hasAdjustPermission={hasPermission('manage_roles')}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-        onAdjustBalance={handleAdjustBalance}
-      />
+      <div data-tour="bank-accounts-table">
+        <BankAccountsTable
+          accounts={filteredAccounts}
+          loading={loading}
+          hasAdjustPermission={hasPermission('manage_roles')}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+          onAdjustBalance={handleAdjustBalance}
+        />
+      </div>
 
       <BankAccountFormModal
         show={showModal}

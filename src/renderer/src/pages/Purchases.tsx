@@ -189,7 +189,7 @@ export default function Purchases(): React.JSX.Element {
   return (
     <Container maxWidth="xl" sx={{ py: 4, bgcolor: 'grey.100', minHeight: '100vh' }}>
       {/* Page Header */}
-      <Box sx={{ mb: 4 }}>
+      <Box sx={{ mb: 4 }} data-tour="purchases-header">
         <Typography variant="h4" component="h1" fontWeight="bold" gutterBottom>
           Purchase Management
         </Typography>
@@ -199,33 +199,39 @@ export default function Purchases(): React.JSX.Element {
       </Box>
 
       {/* Stats Cards */}
-      <PurchaseStats
-        totalPurchases={totalPurchases}
-        totalPaid={totalPaid}
-        totalDue={totalDue}
-        totalTransactions={totalTransactions}
-        currencySymbol={getCurrencySymbol()}
-      />
+      <div data-tour="purchases-stats">
+        <PurchaseStats
+          totalPurchases={totalPurchases}
+          totalPaid={totalPaid}
+          totalDue={totalDue}
+          totalTransactions={totalTransactions}
+          currencySymbol={getCurrencySymbol()}
+        />
+      </div>
 
       {/* Filters */}
-      <PurchaseFilters
-        searchTerm={searchTerm}
-        statusFilter={statusFilter}
-        paymentFilter={paymentFilter}
-        onSearchChange={setSearchTerm}
-        onStatusFilterChange={setStatusFilter}
-        onPaymentFilterChange={setPaymentFilter}
-        onAddPurchase={() => setShowAddModal(true)}
-        onPurchaseReturn={() => setShowReturnModal(true)}
-      />
+      <div data-tour="purchases-filters">
+        <PurchaseFilters
+          searchTerm={searchTerm}
+          statusFilter={statusFilter}
+          paymentFilter={paymentFilter}
+          onSearchChange={setSearchTerm}
+          onStatusFilterChange={setStatusFilter}
+          onPaymentFilterChange={setPaymentFilter}
+          onAddPurchase={() => setShowAddModal(true)}
+          onPurchaseReturn={() => setShowReturnModal(true)}
+        />
+      </div>
 
       {/* Purchases Table */}
-      <PurchasesTable
-        purchases={filteredPurchases}
-        currencySymbol={getCurrencySymbol()}
-        onViewDetails={handleViewDetails}
-        onDelete={handleDelete}
-      />
+      <div data-tour="purchases-table">
+        <PurchasesTable
+          purchases={filteredPurchases}
+          currencySymbol={getCurrencySymbol()}
+          onViewDetails={handleViewDetails}
+          onDelete={handleDelete}
+        />
+      </div>
 
       {/* Purchase Details Modal */}
       <PurchaseDetailsModal

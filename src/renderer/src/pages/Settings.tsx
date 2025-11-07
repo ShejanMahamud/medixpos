@@ -295,39 +295,45 @@ export default function Settings(): React.JSX.Element {
 
       {/* General Settings */}
       {activeTab === 'general' && (
-        <GeneralSettingsForm
-          storeName={storeName}
-          storePhone={storePhone}
-          storeEmail={storeEmail}
-          storeAddress={storeAddress}
-          onStoreNameChange={setStoreName}
-          onStorePhoneChange={setStorePhone}
-          onStoreEmailChange={setStoreEmail}
-          onStoreAddressChange={setStoreAddress}
-          onSubmit={handleSaveGeneral}
-        />
+        <div data-tour="store-info">
+          <GeneralSettingsForm
+            storeName={storeName}
+            storePhone={storePhone}
+            storeEmail={storeEmail}
+            storeAddress={storeAddress}
+            onStoreNameChange={setStoreName}
+            onStorePhoneChange={setStorePhone}
+            onStoreEmailChange={setStoreEmail}
+            onStoreAddressChange={setStoreAddress}
+            onSubmit={handleSaveGeneral}
+          />
+        </div>
       )}
 
       {/* System Settings */}
       {activeTab === 'system' && (
-        <SystemSettingsForm
-          taxRate={taxRate}
-          currency={currency}
-          lowStockThreshold={lowStockThreshold}
-          onTaxRateChange={setTaxRate}
-          onCurrencyChange={setCurrency}
-          onLowStockThresholdChange={setLowStockThreshold}
-          onSubmit={handleSaveSystem}
-        />
+        <div data-tour="tax-settings">
+          <SystemSettingsForm
+            taxRate={taxRate}
+            currency={currency}
+            lowStockThreshold={lowStockThreshold}
+            onTaxRateChange={setTaxRate}
+            onCurrencyChange={setCurrency}
+            onLowStockThresholdChange={setLowStockThreshold}
+            onSubmit={handleSaveSystem}
+          />
+        </div>
       )}
 
       {/* Receipt Settings - Legacy */}
       {activeTab === 'receipt' && (
-        <ReceiptSettingsForm
-          receiptFooter={receiptFooter}
-          onReceiptFooterChange={setReceiptFooter}
-          onSubmit={handleSaveReceipt}
-        />
+        <div data-tour="receipt-settings">
+          <ReceiptSettingsForm
+            receiptFooter={receiptFooter}
+            onReceiptFooterChange={setReceiptFooter}
+            onSubmit={handleSaveReceipt}
+          />
+        </div>
       )}
 
       {/* Business Info Settings */}
@@ -337,7 +343,9 @@ export default function Settings(): React.JSX.Element {
 
       {/* Invoice & Receipt Settings */}
       {activeTab === 'invoice' && (
-        <InvoiceReceiptSettings initialValues={allSettings} onSave={handleSaveSettings} />
+        <div data-tour="receipt-settings">
+          <InvoiceReceiptSettings initialValues={allSettings} onSave={handleSaveSettings} />
+        </div>
       )}
 
       {/* Inventory & Stock Settings */}

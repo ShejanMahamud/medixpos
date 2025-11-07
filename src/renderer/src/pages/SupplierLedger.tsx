@@ -147,44 +147,52 @@ export default function SupplierLedger(): React.JSX.Element {
 
   return (
     <Container maxWidth="xl" sx={{ py: 4, bgcolor: 'grey.100', minHeight: '100vh' }}>
-      <SupplierLedgerHeader
-        onExportPdf={handleExportPdf}
-        canExport={!!selectedSupplier && ledgerEntries.length > 0}
-      />
+      <div data-tour="supplier-ledger-header">
+        <SupplierLedgerHeader
+          onExportPdf={handleExportPdf}
+          canExport={!!selectedSupplier && ledgerEntries.length > 0}
+        />
+      </div>
 
-      <SupplierLedgerFilters
-        suppliers={suppliers}
-        selectedSupplier={selectedSupplier}
-        dateFrom={dateFrom}
-        dateTo={dateTo}
-        onSupplierChange={handleSupplierChange}
-        onDateFromChange={setDateFrom}
-        onDateToChange={setDateTo}
-      />
+      <div data-tour="supplier-ledger-filters">
+        <SupplierLedgerFilters
+          suppliers={suppliers}
+          selectedSupplier={selectedSupplier}
+          dateFrom={dateFrom}
+          dateTo={dateTo}
+          onSupplierChange={handleSupplierChange}
+          onDateFromChange={setDateFrom}
+          onDateToChange={setDateTo}
+        />
+      </div>
 
       {selectedSupplierData && (
-        <SupplierInfoCard
-          supplier={selectedSupplierData}
-          totalDebit={totalDebit}
-          totalCredit={totalCredit}
-          currentBalance={currentBalance}
-          formatCurrency={formatCurrency}
-        />
+        <div data-tour="supplier-ledger-summary">
+          <SupplierInfoCard
+            supplier={selectedSupplierData}
+            totalDebit={totalDebit}
+            totalCredit={totalCredit}
+            currentBalance={currentBalance}
+            formatCurrency={formatCurrency}
+          />
+        </div>
       )}
 
-      <LedgerEntriesTable
-        entries={paginatedEntries}
-        loading={loading}
-        selectedSupplier={selectedSupplier}
-        currentPage={currentPage}
-        itemsPerPage={itemsPerPage}
-        totalPages={totalPages}
-        totalItems={filteredEntries.length}
-        formatCurrency={formatCurrency}
-        getTypeColor={getTypeColor}
-        onPageChange={setCurrentPage}
-        onItemsPerPageChange={setItemsPerPage}
-      />
+      <div data-tour="supplier-ledger-table">
+        <LedgerEntriesTable
+          entries={paginatedEntries}
+          loading={loading}
+          selectedSupplier={selectedSupplier}
+          currentPage={currentPage}
+          itemsPerPage={itemsPerPage}
+          totalPages={totalPages}
+          totalItems={filteredEntries.length}
+          formatCurrency={formatCurrency}
+          getTypeColor={getTypeColor}
+          onPageChange={setCurrentPage}
+          onItemsPerPageChange={setItemsPerPage}
+        />
+      </div>
     </Container>
   )
 }

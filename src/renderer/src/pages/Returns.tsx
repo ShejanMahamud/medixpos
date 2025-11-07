@@ -272,6 +272,7 @@ export default function Returns(): React.JSX.Element {
       {/* Page Header */}
       <Box
         sx={{ mb: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}
+        data-tour="returns-header"
       >
         <Box>
           <Typography variant="h4" component="h1" fontWeight="bold" gutterBottom>
@@ -284,59 +285,67 @@ export default function Returns(): React.JSX.Element {
       </Box>
 
       {/* Tabs */}
-      <ReturnsTabs activeTab={activeTab} onTabChange={setActiveTab} />
+      <div data-tour="returns-tabs">
+        <ReturnsTabs activeTab={activeTab} onTabChange={setActiveTab} />
+      </div>
 
       {/* Tab Content */}
       {activeTab === 'sales-returns' && (
-        <SalesReturnsTable
-          returns={paginatedSalesReturns}
-          searchTerm={salesSearchTerm}
-          onSearchChange={setSalesSearchTerm}
-          currentPage={salesCurrentPage}
-          totalPages={salesTotalPages}
-          itemsPerPage={salesItemsPerPage}
-          onPageChange={setSalesCurrentPage}
-          onItemsPerPageChange={(items) => {
-            setSalesItemsPerPage(items)
-            setSalesCurrentPage(1)
-          }}
-          onViewDetails={handleViewDetails}
-        />
+        <div data-tour="sales-returns-table">
+          <SalesReturnsTable
+            returns={paginatedSalesReturns}
+            searchTerm={salesSearchTerm}
+            onSearchChange={setSalesSearchTerm}
+            currentPage={salesCurrentPage}
+            totalPages={salesTotalPages}
+            itemsPerPage={salesItemsPerPage}
+            onPageChange={setSalesCurrentPage}
+            onItemsPerPageChange={(items) => {
+              setSalesItemsPerPage(items)
+              setSalesCurrentPage(1)
+            }}
+            onViewDetails={handleViewDetails}
+          />
+        </div>
       )}
 
       {activeTab === 'purchase-returns' && (
-        <PurchaseReturnsTable
-          returns={paginatedPurchaseReturns}
-          searchTerm={purchaseSearchTerm}
-          onSearchChange={setPurchaseSearchTerm}
-          currentPage={purchaseCurrentPage}
-          totalPages={purchaseTotalPages}
-          itemsPerPage={purchaseItemsPerPage}
-          onPageChange={setPurchaseCurrentPage}
-          onItemsPerPageChange={(items) => {
-            setPurchaseItemsPerPage(items)
-            setPurchaseCurrentPage(1)
-          }}
-          onViewDetails={handleViewDetails}
-        />
+        <div data-tour="purchase-returns-table">
+          <PurchaseReturnsTable
+            returns={paginatedPurchaseReturns}
+            searchTerm={purchaseSearchTerm}
+            onSearchChange={setPurchaseSearchTerm}
+            currentPage={purchaseCurrentPage}
+            totalPages={purchaseTotalPages}
+            itemsPerPage={purchaseItemsPerPage}
+            onPageChange={setPurchaseCurrentPage}
+            onItemsPerPageChange={(items) => {
+              setPurchaseItemsPerPage(items)
+              setPurchaseCurrentPage(1)
+            }}
+            onViewDetails={handleViewDetails}
+          />
+        </div>
       )}
 
       {activeTab === 'damaged-expired' && (
-        <DamagedItemsTable
-          items={paginatedDamagedItems}
-          searchTerm={damagedSearchTerm}
-          onSearchChange={setDamagedSearchTerm}
-          currentPage={damagedCurrentPage}
-          totalPages={damagedTotalPages}
-          itemsPerPage={damagedItemsPerPage}
-          onPageChange={setDamagedCurrentPage}
-          onItemsPerPageChange={(items) => {
-            setDamagedItemsPerPage(items)
-            setDamagedCurrentPage(1)
-          }}
-          onAddDamagedItem={() => setShowDamagedItemModal(true)}
-          onViewDetails={handleViewDamagedItemDetails}
-        />
+        <div data-tour="damaged-items-table">
+          <DamagedItemsTable
+            items={paginatedDamagedItems}
+            searchTerm={damagedSearchTerm}
+            onSearchChange={setDamagedSearchTerm}
+            currentPage={damagedCurrentPage}
+            totalPages={damagedTotalPages}
+            itemsPerPage={damagedItemsPerPage}
+            onPageChange={setDamagedCurrentPage}
+            onItemsPerPageChange={(items) => {
+              setDamagedItemsPerPage(items)
+              setDamagedCurrentPage(1)
+            }}
+            onAddDamagedItem={() => setShowDamagedItemModal(true)}
+            onViewDetails={handleViewDamagedItemDetails}
+          />
+        </div>
       )}
 
       {/* Modals */}

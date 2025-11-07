@@ -297,30 +297,38 @@ export default function Suppliers(): React.JSX.Element {
   return (
     <Container maxWidth="xl" sx={{ py: 4, bgcolor: 'grey.100', minHeight: '100vh' }}>
       {/* Page Header */}
-      <SupplierHeader />
+      <div data-tour="suppliers-header">
+        <SupplierHeader />
+      </div>
 
       {/* Stats Cards */}
-      <SupplierStats suppliers={suppliers} />
+      <div data-tour="suppliers-stats">
+        <SupplierStats suppliers={suppliers} />
+      </div>
 
       {/* Search Bar */}
-      <SupplierSearchBar
-        searchTerm={searchTerm}
-        onSearchChange={handleSearchChange}
-        onAddClick={() => setShowModal(true)}
-      />
+      <div data-tour="suppliers-search">
+        <SupplierSearchBar
+          searchTerm={searchTerm}
+          onSearchChange={handleSearchChange}
+          onAddClick={() => setShowModal(true)}
+        />
+      </div>
 
       {/* Suppliers Table */}
-      <SuppliersTable
-        suppliers={filteredSuppliers}
-        loading={loading}
-        currentPage={currentPage}
-        itemsPerPage={itemsPerPage}
-        onPageChange={setCurrentPage}
-        onItemsPerPageChange={setItemsPerPage}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-        onRecordPayment={handleRecordPayment}
-      />
+      <div data-tour="suppliers-table">
+        <SuppliersTable
+          suppliers={filteredSuppliers}
+          loading={loading}
+          currentPage={currentPage}
+          itemsPerPage={itemsPerPage}
+          onPageChange={setCurrentPage}
+          onItemsPerPageChange={setItemsPerPage}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+          onRecordPayment={handleRecordPayment}
+        />
+      </div>
 
       {/* Add/Edit Modal */}
       <SupplierFormModal

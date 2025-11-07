@@ -7,6 +7,7 @@
 import { useEffect } from 'react'
 import { Toaster } from 'react-hot-toast'
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'
+
 import { useAuthStore } from './store/authStore'
 import { useSettingsStore } from './store/settingsStore'
 
@@ -15,6 +16,8 @@ import Layout from './components/Layout'
 import LicenseGuard from './components/LicenseGuard'
 import ProtectedRoute from './components/ProtectedRoute'
 import SessionChecker from './components/SessionChecker'
+import TourDemo from './components/TourDemo'
+import TourManager from './components/TourManager'
 import AuditLogs from './pages/AuditLogs'
 import BankAccounts from './pages/BankAccounts'
 import CategoryUnit from './pages/CategoryUnit'
@@ -53,6 +56,7 @@ function App(): React.JSX.Element {
       <HashRouter>
         <Toaster position="top-right" />
         <SessionChecker />
+        <TourManager />
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route
@@ -188,6 +192,14 @@ function App(): React.JSX.Element {
               element={
                 <ProtectedRoute permission="view_settings">
                   <Settings />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="tour-demo"
+              element={
+                <ProtectedRoute permission="view_settings">
+                  <TourDemo />
                 </ProtectedRoute>
               }
             />

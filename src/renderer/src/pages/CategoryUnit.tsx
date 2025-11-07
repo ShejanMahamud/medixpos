@@ -192,27 +192,35 @@ export default function CategoryUnit(): React.JSX.Element {
 
   return (
     <Container maxWidth="xl" sx={{ py: 4, bgcolor: 'grey.100', minHeight: '100vh' }}>
-      <CategoryUnitHeader />
-      <CategoryUnitTabs activeTab={activeTab} onTabChange={setActiveTab} />
+      <div data-tour="category-header">
+        <CategoryUnitHeader />
+      </div>
+      <div data-tour="category-tabs">
+        <CategoryUnitTabs activeTab={activeTab} onTabChange={setActiveTab} />
+      </div>
 
       {activeTab === 'categories' ? (
-        <CategoriesTable
-          categories={categories}
-          searchTerm={categorySearchTerm}
-          onSearchChange={setCategorySearchTerm}
-          onAddClick={handleAddCategory}
-          onEditClick={handleEditCategory}
-          onDeleteClick={handleDeleteCategory}
-        />
+        <div data-tour="categories-table">
+          <CategoriesTable
+            categories={categories}
+            searchTerm={categorySearchTerm}
+            onSearchChange={setCategorySearchTerm}
+            onAddClick={handleAddCategory}
+            onEditClick={handleEditCategory}
+            onDeleteClick={handleDeleteCategory}
+          />
+        </div>
       ) : (
-        <UnitsTable
-          units={units}
-          searchTerm={unitSearchTerm}
-          onSearchChange={setUnitSearchTerm}
-          onAddClick={handleAddUnit}
-          onEditClick={handleEditUnit}
-          onDeleteClick={handleDeleteUnit}
-        />
+        <div data-tour="units-table">
+          <UnitsTable
+            units={units}
+            searchTerm={unitSearchTerm}
+            onSearchChange={setUnitSearchTerm}
+            onAddClick={handleAddUnit}
+            onEditClick={handleEditUnit}
+            onDeleteClick={handleDeleteUnit}
+          />
+        </div>
       )}
 
       <CategoryFormModal

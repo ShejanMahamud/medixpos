@@ -246,24 +246,28 @@ export default function Products(): React.JSX.Element {
             flexWrap: 'wrap'
           }}
         >
-          <ProductFilters
-            searchTerm={searchTerm}
-            categoryFilter={categoryFilter}
-            categories={categories}
-            onSearchChange={setSearchTerm}
-            onCategoryFilterChange={setCategoryFilter}
-          />
+          <div data-tour="product-filters">
+            <ProductFilters
+              searchTerm={searchTerm}
+              categoryFilter={categoryFilter}
+              categories={categories}
+              onSearchChange={setSearchTerm}
+              onCategoryFilterChange={setCategoryFilter}
+            />
+          </div>
           <Box sx={{ display: 'flex', gap: 2, mt: { xs: 2, sm: 0 } }}>
-            <Button
-              variant="contained"
-              startIcon={<AddIcon />}
-              onClick={() => {
-                setEditingProduct(null)
-                setShowModal(true)
-              }}
-            >
-              Add Product
-            </Button>
+            <div data-tour="add-product">
+              <Button
+                variant="contained"
+                startIcon={<AddIcon />}
+                onClick={() => {
+                  setEditingProduct(null)
+                  setShowModal(true)
+                }}
+              >
+                Add Product
+              </Button>
+            </div>
             <Button
               variant="contained"
               color="secondary"
@@ -279,26 +283,30 @@ export default function Products(): React.JSX.Element {
 
       {/* Table Header with Bulk Import */}
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
-        <Button
-          variant="outlined"
-          startIcon={<UploadIcon />}
-          onClick={() => setShowBulkImportModal(true)}
-        >
-          Bulk Import
-        </Button>
+        <div data-tour="export-import">
+          <Button
+            variant="outlined"
+            startIcon={<UploadIcon />}
+            onClick={() => setShowBulkImportModal(true)}
+          >
+            Bulk Import
+          </Button>
+        </div>
       </Box>
 
       {/* Products Table */}
-      <ProductsTable
-        products={filteredProducts}
-        categories={categories}
-        inventory={inventory}
-        currencySymbol={getCurrencySymbol()}
-        loading={loading}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-        onViewBarcode={handleViewBarcode}
-      />
+      <div data-tour="product-list">
+        <ProductsTable
+          products={filteredProducts}
+          categories={categories}
+          inventory={inventory}
+          currencySymbol={getCurrencySymbol()}
+          loading={loading}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+          onViewBarcode={handleViewBarcode}
+        />
+      </div>
 
       {/* Product Form Modal */}
       <ProductFormModal

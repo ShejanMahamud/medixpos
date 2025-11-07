@@ -159,67 +159,75 @@ export default function POS(): React.JSX.Element {
       </Box>
 
       {/* Customer Search Field */}
-      <CustomerSearch
-        customerSearch={customerSearch}
-        selectedCustomer={selectedCustomer}
-        customers={customers}
-        showDropdown={showCustomerDropdown}
-        onSearchChange={setCustomerSearch}
-        onCustomerSelect={selectCustomer}
-        onCustomerClear={clearCustomer}
-        onDropdownClose={() => setShowCustomerDropdown(false)}
-        onFocus={() => {
-          if (customers.length > 0) {
-            setShowCustomerDropdown(true)
-          }
-        }}
-      />
+      <div data-tour="customer-select">
+        <CustomerSearch
+          customerSearch={customerSearch}
+          selectedCustomer={selectedCustomer}
+          customers={customers}
+          showDropdown={showCustomerDropdown}
+          onSearchChange={setCustomerSearch}
+          onCustomerSelect={selectCustomer}
+          onCustomerClear={clearCustomer}
+          onDropdownClose={() => setShowCustomerDropdown(false)}
+          onFocus={() => {
+            if (customers.length > 0) {
+              setShowCustomerDropdown(true)
+            }
+          }}
+        />
+      </div>
 
       {/* Main Content */}
       <Box sx={{ display: 'flex', gap: 2, flex: 1, minHeight: 0 }}>
         {/* Left Side - Products */}
-        <ProductGrid
-          products={products}
-          inventory={inventory}
-          loading={loading}
-          searchTerm={searchTerm}
-          currencySymbol={currencySymbol}
-          onSearchChange={setSearchTerm}
-          onProductClick={addToCart}
-          searchInputRef={searchInputRef}
-        />
+        <div data-tour="product-search">
+          <ProductGrid
+            products={products}
+            inventory={inventory}
+            loading={loading}
+            searchTerm={searchTerm}
+            currencySymbol={currencySymbol}
+            onSearchChange={setSearchTerm}
+            onProductClick={addToCart}
+            searchInputRef={searchInputRef}
+          />
+        </div>
 
         {/* Middle - Cart Items */}
-        <CartList
-          items={cart.items}
-          currencySymbol={currencySymbol}
-          onQuantityUpdate={cart.updateQuantity}
-          onItemRemove={cart.removeItem}
-          onClearCart={cart.clearCart}
-        />
+        <div data-tour="cart-items">
+          <CartList
+            items={cart.items}
+            currencySymbol={currencySymbol}
+            onQuantityUpdate={cart.updateQuantity}
+            onItemRemove={cart.removeItem}
+            onClearCart={cart.clearCart}
+          />
+        </div>
 
         {/* Right Side - Payment & Summary */}
-        <PaymentPanel
-          accounts={accounts}
-          selectedAccount={selectedAccount}
-          cashReceived={cashReceived}
-          discountPercent={discountPercent}
-          pointsToRedeem={pointsToRedeem}
-          selectedCustomer={selectedCustomer}
-          subtotal={cart.getSubtotal()}
-          taxRate={taxRate}
-          total={total}
-          change={change}
-          maxRedeemablePoints={maxRedeemablePoints}
-          pointValue={pointValue}
-          currencySymbol={currencySymbol}
-          cartItemsCount={cart.items.length}
-          onAccountSelect={handleAccountSelect}
-          onCashChange={setCashReceived}
-          onDiscountChange={setDiscountPercent}
-          onPointsChange={setPointsToRedeem}
-          onCheckout={handleCheckout}
-        />
+        <div data-tour="payment-section">
+          <PaymentPanel
+            accounts={accounts}
+            selectedAccount={selectedAccount}
+            cashReceived={cashReceived}
+            discountPercent={discountPercent}
+            pointsToRedeem={pointsToRedeem}
+            selectedCustomer={selectedCustomer}
+            subtotal={cart.getSubtotal()}
+            taxRate={taxRate}
+            total={total}
+            change={change}
+            maxRedeemablePoints={maxRedeemablePoints}
+            pointValue={pointValue}
+            currencySymbol={currencySymbol}
+            cartItemsCount={cart.items.length}
+            onAccountSelect={handleAccountSelect}
+            onCashChange={setCashReceived}
+            onDiscountChange={setDiscountPercent}
+            onPointsChange={setPointsToRedeem}
+            onCheckout={handleCheckout}
+          />
+        </div>
       </Box>
 
       {/* Sale Complete Dialog */}

@@ -95,29 +95,31 @@ export default function PaymentPanel({
         />
 
         {/* Discount Input */}
-        <Typography variant="body2" sx={{ fontWeight: 600, mb: 0.5, fontSize: '0.8rem' }}>
-          Discount (%)
-        </Typography>
-        <TextField
-          fullWidth
-          size="small"
-          type="number"
-          value={discountPercent}
-          onChange={(e) => onDiscountChange(e.target.value)}
-          placeholder="0"
-          sx={{ bgcolor: 'white', mb: 1 }}
-          inputProps={{ min: 0, max: 100, step: '0.01' }}
-        />
+        <div data-tour="discount-points">
+          <Typography variant="body2" sx={{ fontWeight: 600, mb: 0.5, fontSize: '0.8rem' }}>
+            Discount (%)
+          </Typography>
+          <TextField
+            fullWidth
+            size="small"
+            type="number"
+            value={discountPercent}
+            onChange={(e) => onDiscountChange(e.target.value)}
+            placeholder="0"
+            sx={{ bgcolor: 'white', mb: 1 }}
+            inputProps={{ min: 0, max: 100, step: '0.01' }}
+          />
 
-        {/* Loyalty Points Redemption */}
-        <LoyaltyPointsRedemption
-          customer={selectedCustomer}
-          pointsToRedeem={pointsToRedeem}
-          maxRedeemablePoints={maxRedeemablePoints}
-          pointValue={pointValue}
-          currencySymbol={currencySymbol}
-          onPointsChange={onPointsChange}
-        />
+          {/* Loyalty Points Redemption */}
+          <LoyaltyPointsRedemption
+            customer={selectedCustomer}
+            pointsToRedeem={pointsToRedeem}
+            maxRedeemablePoints={maxRedeemablePoints}
+            pointValue={pointValue}
+            currencySymbol={currencySymbol}
+            onPointsChange={onPointsChange}
+          />
+        </div>
 
         {/* Summary Section */}
         <PaymentSummary

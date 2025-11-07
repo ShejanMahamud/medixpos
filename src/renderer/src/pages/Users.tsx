@@ -267,7 +267,7 @@ export default function Users(): React.JSX.Element {
   return (
     <Container maxWidth="xl" sx={{ py: 4 }}>
       {/* Page Header */}
-      <Box sx={{ mb: 4 }}>
+      <Box sx={{ mb: 4 }} data-tour="users-header">
         <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'text.primary' }}>
           Users Management
         </Typography>
@@ -276,23 +276,27 @@ export default function Users(): React.JSX.Element {
         </Typography>
       </Box>
 
-      <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
+      <div data-tour="users-tabs">
+        <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
+      </div>
 
       {activeTab === 'users' ? (
         <>
-          <ActionBar
-            searchTerm={searchTerm}
-            selectedRole={selectedRole}
-            filteredCount={filteredUsers.length}
-            hasCreatePermission={hasPermission('create_user')}
-            hasAvailableRoles={availableRoles.length > 0}
-            onSearchChange={setSearchTerm}
-            onRoleFilterChange={setSelectedRole}
-            onCreateClick={() => setShowCreateModal(true)}
-          />
+          <div data-tour="users-actions">
+            <ActionBar
+              searchTerm={searchTerm}
+              selectedRole={selectedRole}
+              filteredCount={filteredUsers.length}
+              hasCreatePermission={hasPermission('create_user')}
+              hasAvailableRoles={availableRoles.length > 0}
+              onSearchChange={setSearchTerm}
+              onRoleFilterChange={setSelectedRole}
+              onCreateClick={() => setShowCreateModal(true)}
+            />
+          </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2">
+            <div className="lg:col-span-2" data-tour="users-table">
               <UserTable
                 users={paginatedUsers}
                 currentUser={currentUser}
@@ -311,11 +315,13 @@ export default function Users(): React.JSX.Element {
               />
             </div>
 
-            <UserDetailsPanel
-              selectedUser={selectedUser}
-              canResetPassword={canResetPassword}
-              onResetPassword={handleResetPassword}
-            />
+            <div data-tour="users-details">
+              <UserDetailsPanel
+                selectedUser={selectedUser}
+                canResetPassword={canResetPassword}
+                onResetPassword={handleResetPassword}
+              />
+            </div>
           </div>
 
           <CreateUserModal
@@ -336,11 +342,17 @@ export default function Users(): React.JSX.Element {
           />
         </>
       ) : activeTab === 'attendance' ? (
-        <AttendanceTab users={users} currentUser={currentUser} />
+        <div data-tour="users-attendance">
+          <AttendanceTab users={users} currentUser={currentUser} />
+        </div>
       ) : activeTab === 'salary' ? (
-        <SalaryTab users={users} currentUser={currentUser} />
+        <div data-tour="users-salary">
+          <SalaryTab users={users} currentUser={currentUser} />
+        </div>
       ) : (
-        <PermissionMatrixTab />
+        <div data-tour="users-permissions">
+          <PermissionMatrixTab />
+        </div>
       )}
     </Container>
   )

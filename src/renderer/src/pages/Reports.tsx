@@ -258,6 +258,7 @@ export default function Reports(): React.JSX.Element {
       {/* Page Header */}
       <Box
         sx={{ mb: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}
+        data-tour="reports-header"
       >
         <Box>
           <Typography variant="h4" component="h1" fontWeight="bold" gutterBottom>
@@ -269,32 +270,44 @@ export default function Reports(): React.JSX.Element {
         </Box>
       </Box>
 
-      <ReportFilters
-        reportType={reportType}
-        dateRange={dateRange}
-        onReportTypeChange={setReportType}
-        onDateRangeChange={setDateRange}
-        onPrint={printReport}
-        onExport={exportReport}
-      />
+      <div data-tour="reports-filters">
+        <ReportFilters
+          reportType={reportType}
+          dateRange={dateRange}
+          onReportTypeChange={setReportType}
+          onDateRangeChange={setDateRange}
+          onPrint={printReport}
+          onExport={exportReport}
+        />
+      </div>
 
       {reportType === 'overview' && (
-        <OverviewReport
-          reportData={reportData}
-          currencySymbol={currencySymbol}
-          dateRange={dateRange}
-        />
+        <div data-tour="reports-overview">
+          <OverviewReport
+            reportData={reportData}
+            currencySymbol={currencySymbol}
+            dateRange={dateRange}
+          />
+        </div>
       )}
       {reportType === 'sales' && (
-        <SalesReport
-          reportData={reportData}
-          currencySymbol={currencySymbol}
-          dateRange={dateRange}
-        />
+        <div data-tour="reports-sales">
+          <SalesReport
+            reportData={reportData}
+            currencySymbol={currencySymbol}
+            dateRange={dateRange}
+          />
+        </div>
       )}
-      {reportType === 'inventory' && <InventoryReport reportData={reportData} />}
+      {reportType === 'inventory' && (
+        <div data-tour="reports-inventory">
+          <InventoryReport reportData={reportData} />
+        </div>
+      )}
       {reportType === 'customer' && (
-        <CustomerReport reportData={reportData} currencySymbol={currencySymbol} />
+        <div data-tour="reports-customer">
+          <CustomerReport reportData={reportData} currencySymbol={currencySymbol} />
+        </div>
       )}
     </Container>
   )

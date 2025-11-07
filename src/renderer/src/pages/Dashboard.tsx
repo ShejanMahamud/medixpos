@@ -242,7 +242,9 @@ export default function Dashboard(): React.JSX.Element {
     <Box sx={{ p: 3, bgcolor: '#f5f5f5', minHeight: '100vh' }}>
       <DashboardHeader userName={user?.fullName || 'User'} />
 
-      <DashboardStats stats={stats} currencySymbol={currencySymbol} />
+      <div data-tour="dashboard-stats">
+        <DashboardStats stats={stats} currencySymbol={currencySymbol} />
+      </div>
 
       {/* Charts Section */}
       <Box
@@ -252,6 +254,7 @@ export default function Dashboard(): React.JSX.Element {
           gap: 3,
           mb: 3
         }}
+        data-tour="sales-chart"
       >
         <SalesTrendChart data={salesTrendData} currencySymbol={currencySymbol} />
         <RevenueDistributionChart data={revenueDistributionData} currencySymbol={currencySymbol} />
@@ -266,11 +269,17 @@ export default function Dashboard(): React.JSX.Element {
           mb: 3
         }}
       >
-        <RecentSalesCard sales={recentSales} currencySymbol={currencySymbol} />
-        <LowStockAlertsCard items={lowStockItems} currencySymbol={currencySymbol} />
+        <div data-tour="recent-sales">
+          <RecentSalesCard sales={recentSales} currencySymbol={currencySymbol} />
+        </div>
+        <div data-tour="low-stock-alerts">
+          <LowStockAlertsCard items={lowStockItems} currencySymbol={currencySymbol} />
+        </div>
       </Box>
 
-      <QuickActionsCard />
+      <div data-tour="quick-actions">
+        <QuickActionsCard />
+      </div>
     </Box>
   )
 }
