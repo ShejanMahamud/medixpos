@@ -26,6 +26,7 @@ import Dashboard from './pages/Dashboard'
 import Inventory from './pages/Inventory'
 import Login from './pages/Login'
 import POS from './pages/POS'
+import Prescriptions from './pages/Prescriptions'
 import Products from './pages/Products'
 import Purchases from './pages/Purchases'
 import Reports from './pages/Reports'
@@ -152,6 +153,14 @@ function App(): React.JSX.Element {
               element={
                 <ProtectedRoute permission="view_customers">
                   <Customers />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="prescriptions"
+              element={
+                <ProtectedRoute permission="view_customers">
+                  <Prescriptions />
                 </ProtectedRoute>
               }
             />

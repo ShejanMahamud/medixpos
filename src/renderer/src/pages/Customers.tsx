@@ -12,6 +12,7 @@ import CustomerFormModal from '../components/customers/CustomerFormModal'
 import CustomerHeader from '../components/customers/CustomerHeader'
 import CustomersTable from '../components/customers/CustomersTable'
 import CustomerStats from '../components/customers/CustomerStats'
+import CustomerViewModal from '../components/customers/CustomerViewModal'
 import { useSettingsStore } from '../store/settingsStore'
 import { Customer, CustomerFormData } from '../types/customer'
 
@@ -21,7 +22,9 @@ export default function Customers(): React.JSX.Element {
   const [searchTerm, setSearchTerm] = useState('')
   const [statusFilter, setStatusFilter] = useState('all')
   const [showModal, setShowModal] = useState(false)
+  const [showViewModal, setShowViewModal] = useState(false)
   const [editingCustomer, setEditingCustomer] = useState<Customer | null>(null)
+  const [viewingCustomer, setViewingCustomer] = useState<Customer | null>(null)
 
   const currency = useSettingsStore((state) => state.currency)
 
@@ -152,6 +155,21 @@ export default function Customers(): React.JSX.Element {
     setShowModal(true)
   }
 
+  const handleView = (customer: Customer): void => {
+    setViewingCustomer(customer)
+    setShowViewModal(true)
+  }
+
+  const handleDelete = async (id: string): Promise<void> => {
+    try {
+      await window.api.customers.delete(id)
+      toast.success('Customer deleted successfully')
+      await loadCustomers()
+    } catch {
+      toast.error('Failed to delete customer')
+    }
+  }
+
   const handleCloseModal = (): void => {
     setShowModal(false)
     setEditingCustomer(null)
@@ -163,6 +181,11 @@ export default function Customers(): React.JSX.Element {
       dateOfBirth: '',
       status: 'active'
     })
+  }
+
+  const handleCloseViewModal = (): void => {
+    setShowViewModal(false)
+    setViewingCustomer(null)
   }
 
   // Calculate stats
@@ -202,6 +225,8 @@ export default function Customers(): React.JSX.Element {
           customers={filteredCustomers}
           currencySymbol={getCurrencySymbol()}
           onEdit={handleEdit}
+          onView={handleView}
+          onDelete={handleDelete}
         />
       </div>
 
@@ -212,6 +237,13 @@ export default function Customers(): React.JSX.Element {
         formData={formData}
         onFormDataChange={setFormData}
         onSubmit={handleSubmit}
+      />
+
+      <CustomerViewModal
+        open={showViewModal}
+        onClose={handleCloseViewModal}
+        customer={viewingCustomer}
+        currencySymbol={getCurrencySymbol()}
       />
     </Container>
   )

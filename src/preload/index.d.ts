@@ -120,10 +120,26 @@ interface API {
   }
   customers: {
     getAll: (search?: string) => Promise<Record<string, unknown>[]>
+    getById: (id: string) => Promise<Record<string, unknown>>
     getByPhone: (phone: string) => Promise<Record<string, unknown>>
     create: (data: Record<string, unknown>) => Promise<Record<string, unknown>>
     update: (id: string, data: Record<string, unknown>) => Promise<Record<string, unknown>>
+    delete: (id: string) => Promise<Record<string, unknown>>
     recalculateStats: () => Promise<{ success: boolean; message: string }>
+  }
+  prescriptions: {
+    getAll: (customerId?: string) => Promise<Record<string, unknown>[]>
+    getById: (id: string) => Promise<Record<string, unknown>>
+    getByCustomer: (customerId: string) => Promise<Record<string, unknown>[]>
+    create: (data: Record<string, unknown>) => Promise<Record<string, unknown>>
+    update: (id: string, data: Record<string, unknown>) => Promise<Record<string, unknown>>
+    delete: (id: string) => Promise<{ success: boolean }>
+    search: (searchTerm: string) => Promise<Record<string, unknown>[]>
+    getStats: () => Promise<{
+      total: number
+      thisMonth: number
+      withSales: number
+    }>
   }
   sales: {
     create: (
@@ -132,6 +148,7 @@ interface API {
     ) => Promise<Record<string, unknown>>
     getAll: (startDate?: string, endDate?: string) => Promise<Record<string, unknown>[]>
     getById: (id: string) => Promise<Record<string, unknown>>
+    getByCustomer: (customerId: string) => Promise<Record<string, unknown>[]>
   }
   salesReturns: {
     create: (

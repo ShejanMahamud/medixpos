@@ -4,7 +4,7 @@
  * Unauthorized use, copying, or distribution is strictly prohibited.
  */
 
-import { Delete, Edit, Group, Star, Visibility } from '@mui/icons-material'
+import { AttachFile, Delete, Description, Edit, Link, Visibility } from '@mui/icons-material'
 import {
   Box,
   Chip,
@@ -23,28 +23,28 @@ import {
   Typography
 } from '@mui/material'
 import { useState } from 'react'
-import { Customer } from '../../types/customer'
-import ConfirmationDialog from '../common/ConfirmationDialog'
+import { Prescription } from '../../types/prescription'
+import SaleLinkModal from './SaleLinkModal'
 
-interface CustomersTableProps {
-  customers: Customer[]
-  currencySymbol: string
-  onEdit: (customer: Customer) => void
-  onView: (customer: Customer) => void
+interface PrescriptionsTableProps {
+  prescriptions: Prescription[]
+  onEdit: (prescription: Prescription) => void
+  onView: (prescription: Prescription) => void
   onDelete: (id: string) => void
+  onRefresh?: () => void
 }
 
-export default function CustomersTable({
-  customers,
-  currencySymbol,
+export default function PrescriptionsTable({
+  prescriptions,
   onEdit,
   onView,
-  onDelete
-}: CustomersTableProps): React.JSX.Element {
+  onDelete,
+  onRefresh
+}: PrescriptionsTableProps): React.JSX.Element {
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(25)
-  const [showDeleteDialog, setShowDeleteDialog] = useState(false)
-  const [customerToDelete, setCustomerToDelete] = useState<Customer | null>(null)
+  const [showSaleLinkModal, setShowSaleLinkModal] = useState(false)
+  const [selectedPrescription, setSelectedPrescription] = useState<Prescription | null>(null)
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -69,26 +69,33 @@ export default function CustomersTable({
     setPage(0)
   }
 
-  const handleDeleteClick = (customer: Customer): void => {
-    setCustomerToDelete(customer)
-    setShowDeleteDialog(true)
+  const formatDate = (dateString: string): string => {
+    const date = new Date(dateString)
+    return date.toLocaleDateString()
   }
 
-  const handleDeleteConfirm = (): void => {
-    if (customerToDelete) {
-      onDelete(customerToDelete.id)
-      setCustomerToDelete(null)
+  const handleLinkSale = (prescription: Prescription): void => {
+    setSelectedPrescription(prescription)
+    setShowSaleLinkModal(true)
+  }
+
+  const handleSaleLinkModalClose = (): void => {
+    setShowSaleLinkModal(false)
+    setSelectedPrescription(null)
+  }
+
+  const handleSaleLinked = (): void => {
+    if (onRefresh) {
+      onRefresh()
     }
   }
 
-  const handleDeleteCancel = (): void => {
-    setShowDeleteDialog(false)
-    setCustomerToDelete(null)
-  }
+  const paginatedPrescriptions = prescriptions.slice(
+    page * rowsPerPage,
+    page * rowsPerPage + rowsPerPage
+  )
 
-  const paginatedCustomers = customers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-
-  if (paginatedCustomers.length === 0) {
+  if (paginatedPrescriptions.length === 0) {
     return (
       <Paper sx={{ p: 12, textAlign: 'center' }}>
         <Box
@@ -105,14 +112,14 @@ export default function CustomersTable({
           }}
         >
           <Typography variant="h5" sx={{ color: 'text.secondary' }}>
-            <Group />
+            <Description />
           </Typography>
         </Box>
         <Typography variant="h6" sx={{ fontWeight: 600, color: 'text.primary', mb: 1 }}>
-          No customers found
+          No prescriptions found
         </Typography>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          Get started by adding a new customer.
+          Get started by adding a new prescription.
         </Typography>
       </Paper>
     )
@@ -124,19 +131,19 @@ export default function CustomersTable({
         <Table stickyHeader>
           <TableHead>
             <TableRow>
+              <StyledTableCell>Prescription</StyledTableCell>
               <StyledTableCell>Customer</StyledTableCell>
-              <StyledTableCell>Contact</StyledTableCell>
-              <StyledTableCell>Address</StyledTableCell>
-              <StyledTableCell>Member Since</StyledTableCell>
-              <StyledTableCell>Loyalty Points</StyledTableCell>
-              <StyledTableCell>Total Purchases</StyledTableCell>
-              <StyledTableCell>Status</StyledTableCell>
+              <StyledTableCell>Doctor</StyledTableCell>
+              <StyledTableCell>Diagnosis</StyledTableCell>
+              <StyledTableCell>Prescription Date</StyledTableCell>
+              <StyledTableCell>Document</StyledTableCell>
+              <StyledTableCell>Linked Sale</StyledTableCell>
               <StyledTableCell align="right">Actions</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {paginatedCustomers.map((customer) => (
-              <TableRow key={customer.id} hover>
+            {paginatedPrescriptions.map((prescription) => (
+              <TableRow key={prescription.id} hover>
                 <TableCell>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                     <Box
@@ -144,7 +151,7 @@ export default function CustomersTable({
                         width: 40,
                         height: 40,
                         borderRadius: 2,
-                        bgcolor: 'primary.light',
+                        bgcolor: 'info.light',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -153,25 +160,25 @@ export default function CustomersTable({
                         fontSize: '0.875rem'
                       }}
                     >
-                      {customer.name.charAt(0).toUpperCase()}
+                      <Description fontSize="small" />
                     </Box>
                     <Box>
                       <Typography variant="body2" sx={{ fontWeight: 600, color: 'text.primary' }}>
-                        {customer.name}
+                        {prescription.prescriptionNumber || 'RX-' + prescription.id.slice(0, 6)}
                       </Typography>
                       <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-                        #{customer.id.slice(0, 8)}
+                        #{prescription.id.slice(0, 8)}
                       </Typography>
                     </Box>
                   </Box>
                 </TableCell>
                 <TableCell>
                   <Typography variant="body2" sx={{ fontWeight: 500, color: 'text.primary' }}>
-                    {customer.phone}
+                    {prescription.customer?.name || 'Unknown'}
                   </Typography>
-                  {customer.email && (
+                  {prescription.customer?.phone && (
                     <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-                      {customer.email}
+                      {prescription.customer.phone}
                     </Typography>
                   )}
                 </TableCell>
@@ -187,44 +194,71 @@ export default function CustomersTable({
                       whiteSpace: 'nowrap'
                     }}
                   >
-                    {customer.address || 'N/A'}
+                    {prescription.doctorName || 'N/A'}
+                  </Typography>
+                  {prescription.doctorPhone && (
+                    <Typography variant="caption" sx={{ color: 'text.secondary' }}>
+                      {prescription.doctorPhone}
+                    </Typography>
+                  )}
+                </TableCell>
+                <TableCell>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      fontWeight: 500,
+                      color: 'text.primary',
+                      maxWidth: 200,
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap'
+                    }}
+                  >
+                    {prescription.diagnosis || 'N/A'}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="body2" sx={{ fontWeight: 500, color: 'text.primary' }}>
-                    {new Date(customer.createdAt).toLocaleDateString()}
+                    {formatDate(prescription.prescriptionDate)}
                   </Typography>
                   <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-                    {new Date(customer.createdAt).toLocaleTimeString()}
+                    {new Date(prescription.createdAt).toLocaleTimeString()}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                    <Star sx={{ fontSize: 18, color: 'warning.main' }} />
-                    <Typography variant="body2" sx={{ fontWeight: 600, color: 'text.primary' }}>
-                      {customer.loyaltyPoints}
-                    </Typography>
+                    {prescription.imageUrl ? (
+                      <>
+                        <AttachFile sx={{ fontSize: 18, color: 'success.main' }} />
+                        <Chip label="Attached" size="small" color="success" />
+                      </>
+                    ) : (
+                      <Chip label="No Document" size="small" variant="outlined" />
+                    )}
                   </Box>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="body2" sx={{ fontWeight: 600, color: 'text.primary' }}>
-                    {currencySymbol}
-                    {customer.totalPurchases.toFixed(2)}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Chip
-                    label={customer.status === 'active' ? 'Active' : 'Inactive'}
-                    size="small"
-                    color={customer.status === 'active' ? 'success' : 'default'}
-                  />
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                    {prescription.sale ? (
+                      <>
+                        <Link sx={{ fontSize: 18, color: 'primary.main' }} />
+                        <Chip
+                          label={prescription.sale.invoiceNumber}
+                          size="small"
+                          color="primary"
+                        />
+                      </>
+                    ) : (
+                      <Chip label="No Sale" size="small" variant="outlined" />
+                    )}
+                  </Box>
                 </TableCell>
                 <TableCell align="right">
                   <Box sx={{ display: 'flex', gap: 1, justifyContent: 'flex-end' }}>
                     <Tooltip title="View Details">
                       <IconButton
                         size="small"
-                        onClick={() => onView(customer)}
+                        onClick={() => onView(prescription)}
                         sx={{
                           color: 'info.main',
                           '&:hover': { bgcolor: 'info.50' }
@@ -233,10 +267,22 @@ export default function CustomersTable({
                         <Visibility fontSize="small" />
                       </IconButton>
                     </Tooltip>
-                    <Tooltip title="Edit Customer">
+                    <Tooltip title="Link to Sale">
                       <IconButton
                         size="small"
-                        onClick={() => onEdit(customer)}
+                        onClick={() => handleLinkSale(prescription)}
+                        sx={{
+                          color: prescription.sale ? 'success.main' : 'warning.main',
+                          '&:hover': { bgcolor: prescription.sale ? 'success.50' : 'warning.50' }
+                        }}
+                      >
+                        <Link fontSize="small" />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Edit Prescription">
+                      <IconButton
+                        size="small"
+                        onClick={() => onEdit(prescription)}
                         sx={{
                           color: 'primary.main',
                           '&:hover': { bgcolor: 'primary.50' }
@@ -245,10 +291,10 @@ export default function CustomersTable({
                         <Edit fontSize="small" />
                       </IconButton>
                     </Tooltip>
-                    <Tooltip title="Delete Customer">
+                    <Tooltip title="Delete Prescription">
                       <IconButton
                         size="small"
-                        onClick={() => handleDeleteClick(customer)}
+                        onClick={() => onDelete(prescription.id)}
                         sx={{
                           color: 'error.main',
                           '&:hover': { bgcolor: 'error.50' }
@@ -267,7 +313,7 @@ export default function CustomersTable({
       <Paper>
         <TablePagination
           component="div"
-          count={customers.length}
+          count={prescriptions.length}
           page={page}
           onPageChange={handleChangePage}
           rowsPerPage={rowsPerPage}
@@ -276,16 +322,15 @@ export default function CustomersTable({
         />
       </Paper>
 
-      <ConfirmationDialog
-        open={showDeleteDialog}
-        onClose={handleDeleteCancel}
-        onConfirm={handleDeleteConfirm}
-        title="Delete Customer"
-        message={`Are you sure you want to delete "${customerToDelete?.name}"? This will mark them as inactive and they will no longer appear in the active customers list.`}
-        confirmText="Delete"
-        cancelText="Cancel"
-        severity="error"
-      />
+      {/* Sale Link Modal */}
+      {showSaleLinkModal && selectedPrescription && (
+        <SaleLinkModal
+          isOpen={showSaleLinkModal}
+          onClose={handleSaleLinkModalClose}
+          prescription={selectedPrescription}
+          onSaleLinked={handleSaleLinked}
+        />
+      )}
     </Box>
   )
 }

@@ -111,11 +111,26 @@ const api = {
   // Customers
   customers: {
     getAll: (search?: string) => ipcRenderer.invoke('db:customers:getAll', search),
+    getById: (id: string) => ipcRenderer.invoke('db:customers:getById', id),
     getByPhone: (phone: string) => ipcRenderer.invoke('db:customers:getByPhone', phone),
     create: (data: Record<string, unknown>) => ipcRenderer.invoke('db:customers:create', data),
     update: (id: string, data: Record<string, unknown>) =>
       ipcRenderer.invoke('db:customers:update', { id, data }),
+    delete: (id: string) => ipcRenderer.invoke('db:customers:delete', id),
     recalculateStats: () => ipcRenderer.invoke('db:customers:recalculateStats')
+  },
+  // Prescriptions
+  prescriptions: {
+    getAll: (customerId?: string) => ipcRenderer.invoke('db:prescriptions:getAll', customerId),
+    getById: (id: string) => ipcRenderer.invoke('db:prescriptions:getById', id),
+    getByCustomer: (customerId: string) =>
+      ipcRenderer.invoke('db:prescriptions:getByCustomer', customerId),
+    create: (data: Record<string, unknown>) => ipcRenderer.invoke('db:prescriptions:create', data),
+    update: (id: string, data: Record<string, unknown>) =>
+      ipcRenderer.invoke('db:prescriptions:update', { id, data }),
+    delete: (id: string) => ipcRenderer.invoke('db:prescriptions:delete', id),
+    search: (searchTerm: string) => ipcRenderer.invoke('db:prescriptions:search', searchTerm),
+    getStats: () => ipcRenderer.invoke('db:prescriptions:getStats')
   },
   // Sales
   sales: {
@@ -123,7 +138,8 @@ const api = {
       ipcRenderer.invoke('db:sales:create', { sale, items }),
     getAll: (startDate?: string, endDate?: string) =>
       ipcRenderer.invoke('db:sales:getAll', { startDate, endDate }),
-    getById: (id: string) => ipcRenderer.invoke('db:sales:getById', id)
+    getById: (id: string) => ipcRenderer.invoke('db:sales:getById', id),
+    getByCustomer: (customerId: string) => ipcRenderer.invoke('db:sales:getByCustomer', customerId)
   },
   // Sales Returns
   salesReturns: {

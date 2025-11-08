@@ -112,6 +112,44 @@ export function registerCustomerHandlers(): void {
     return result
   })
 
+  // Soft delete customer (mark as inactive)
+  ipcMain.handle('db:customers:delete', async (_, id: string) => {
+    try {
+      const customer = db.select().from(schema.customers).where(eq(schema.customers.id, id)).get()
+
+      if (!customer) {
+        throw new Error('Customer not found')
+      }
+
+      const result = db
+        .update(schema.customers)
+        .set({
+          isActive: false,
+          updatedAt: new Date().toISOString()
+        })
+        .where(eq(schema.customers.id, id))
+        .returning()
+        .get()
+
+      createAuditLog(db, {
+        action: 'delete',
+        entityType: 'customer',
+        entityId: id,
+        entityName: customer.name
+      })
+
+      return result
+    } catch (error) {
+      console.error('Error deleting customer:', error)
+      throw new Error('Failed to delete customer')
+    }
+  })
+
+  // Get customer by ID
+  ipcMain.handle('db:customers:getById', async (_, id: string) => {
+    return db.select().from(schema.customers).where(eq(schema.customers.id, id)).get()
+  })
+
   // Recalculate customer loyalty points and total purchases from sales
   ipcMain.handle('db:customers:recalculateStats', async () => {
     try {

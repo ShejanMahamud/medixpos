@@ -29,6 +29,7 @@ import { registerCategoryUnitHandlers } from './handlers/category-unit-handlers'
 import { registerCustomerHandlers } from './handlers/customer-handlers'
 import { registerDatabaseUtilsHandlers } from './handlers/database-utils-handlers'
 import { registerHRHandlers } from './handlers/hr-handlers'
+import { registerPrescriptionHandlers } from './handlers/prescription-handlers'
 import { registerProductInventoryHandlers } from './handlers/product-inventory-handlers'
 import { registerPurchaseHandlers } from './handlers/purchase-handlers'
 import { registerReportsSettingsHandlers } from './handlers/reports-settings-handlers'
@@ -47,6 +48,7 @@ export function registerDatabaseHandlers(): void {
   registerSupplierHandlers()
   registerProductInventoryHandlers()
   registerCustomerHandlers()
+  registerPrescriptionHandlers()
   registerSalesHandlers()
   registerPurchaseHandlers()
   registerBankAccountHandlers()

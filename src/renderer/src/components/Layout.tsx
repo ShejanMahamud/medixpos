@@ -12,6 +12,7 @@ import {
   Dashboard,
   Description,
   Inventory,
+  LocalHospital,
   Logout,
   People,
   Person,
@@ -114,6 +115,12 @@ export default function Layout(): React.JSX.Element {
       path: '/customers',
       permission: 'view_customers' as Permission,
       icon: <People />
+    },
+    {
+      name: 'Prescriptions',
+      path: '/prescriptions',
+      permission: 'view_customers' as Permission,
+      icon: <LocalHospital />
     },
     {
       name: 'Accounts',

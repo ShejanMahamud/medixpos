@@ -200,6 +200,29 @@ export function registerSalesHandlers(): void {
     return null
   })
 
+  // Get sales by customer
+  ipcMain.handle('db:sales:getByCustomer', async (_, customerId: string) => {
+    try {
+      return db
+        .select({
+          id: schema.sales.id,
+          invoiceNumber: schema.sales.invoiceNumber,
+          totalAmount: schema.sales.totalAmount,
+          paymentMethod: schema.sales.paymentMethod,
+          status: schema.sales.status,
+          createdAt: schema.sales.createdAt
+        })
+        .from(schema.sales)
+        .where(eq(schema.sales.customerId, customerId))
+        .orderBy(desc(schema.sales.createdAt))
+        .limit(20) // Limit to recent 20 sales
+        .all()
+    } catch (error) {
+      console.error('Error fetching sales by customer:', error)
+      throw error
+    }
+  })
+
   // ==================== SALES RETURNS ====================
 
   // Create sales return
