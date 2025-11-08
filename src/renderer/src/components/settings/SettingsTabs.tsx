@@ -16,6 +16,7 @@ import {
   Notifications,
   People,
   PointOfSale,
+  Print,
   QrCodeScanner,
   Receipt,
   Security,
@@ -140,6 +141,13 @@ export default function SettingsTabs({
           value="cash-drawer"
           label="Cash Drawer"
           icon={<LocalAtm />}
+          iconPosition="start"
+          sx={{ minHeight: 64 }}
+        />
+        <Tab
+          value="printer"
+          label="Receipt Printer"
+          icon={<Print />}
           iconPosition="start"
           sx={{ minHeight: 64 }}
         />

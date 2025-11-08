@@ -566,3 +566,44 @@ export const notifications = sqliteTable('notifications', {
   createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`),
   updatedAt: text('updated_at').default(sql`CURRENT_TIMESTAMP`)
 })
+
+// Printer Settings table
+export const printerSettings = sqliteTable('printer_settings', {
+  id: text('id').primaryKey(),
+  name: text('name').notNull(), // Friendly name for the printer
+  printerType: text('printer_type').notNull(), // 'usb', 'network', 'bluetooth'
+  connectionPath: text('connection_path').notNull(), // USB path, IP address, or Bluetooth address
+  paperWidth: integer('paper_width').notNull().default(80), // Paper width in mm (58, 80)
+  characterWidth: integer('character_width').notNull().default(48), // Characters per line
+  isDefault: integer('is_default', { mode: 'boolean' }).default(false),
+  autoPrint: integer('auto_print', { mode: 'boolean' }).default(true), // Auto-print on sale completion
+  isActive: integer('is_active', { mode: 'boolean' }).default(true),
+  // Receipt customization
+  showLogo: integer('show_logo', { mode: 'boolean' }).default(true),
+  logoPath: text('logo_path'), // Path to logo image
+  businessName: text('business_name'),
+  businessAddress: text('business_address'),
+  businessPhone: text('business_phone'),
+  footerMessage: text('footer_message'),
+  showBarcode: integer('show_barcode', { mode: 'boolean' }).default(true),
+  // Print settings
+  fontSize: text('font_size').default('normal'), // 'small', 'normal', 'large'
+  cutPaper: integer('cut_paper', { mode: 'boolean' }).default(true),
+  openCashDrawer: integer('open_cash_drawer', { mode: 'boolean' }).default(false),
+  createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`),
+  updatedAt: text('updated_at').default(sql`CURRENT_TIMESTAMP`)
+})
+
+// Print Queue table
+export const printQueue = sqliteTable('print_queue', {
+  id: text('id').primaryKey(),
+  printerId: text('printer_id').references(() => printerSettings.id),
+  saleId: text('sale_id').references(() => sales.id),
+  receiptData: text('receipt_data').notNull(), // JSON string of receipt data
+  status: text('status').notNull().default('pending'), // 'pending', 'printing', 'completed', 'failed'
+  attempts: integer('attempts').default(0),
+  lastError: text('last_error'),
+  printedAt: text('printed_at'),
+  createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`),
+  updatedAt: text('updated_at').default(sql`CURRENT_TIMESTAMP`)
+})

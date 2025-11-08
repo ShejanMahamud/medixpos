@@ -727,6 +727,58 @@ interface API {
       error?: string
     }>
   }
+
+  printer: {
+    list: () => Promise<{
+      success: boolean
+      printers?: Array<{
+        name: string
+        type: string
+        path: string
+        status: string
+      }>
+      error?: string
+    }>
+    saveConfig: (config: Record<string, unknown>) => Promise<{
+      success: boolean
+      error?: string
+    }>
+    getConfigs: () => Promise<{
+      success: boolean
+      configs?: Array<Record<string, unknown>>
+      error?: string
+    }>
+    getDefault: () => Promise<{
+      success: boolean
+      config?: Record<string, unknown> | null
+      error?: string
+    }>
+    deleteConfig: (id: string) => Promise<{
+      success: boolean
+      error?: string
+    }>
+    test: (printerId: string) => Promise<{
+      success: boolean
+      error?: string
+    }>
+    printReceipt: (
+      saleId: string,
+      printerId?: string
+    ) => Promise<{
+      success: boolean
+      error?: string
+    }>
+    reprintLast: () => Promise<{
+      success: boolean
+      error?: string
+    }>
+    getQueue: (limit?: number) => Promise<{
+      success: boolean
+      queue?: Array<Record<string, unknown>>
+      error?: string
+    }>
+  }
+
   export: {
     products: (options: {
       format: 'csv' | 'xlsx' | 'json'

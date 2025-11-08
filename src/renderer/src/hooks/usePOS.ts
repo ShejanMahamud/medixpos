@@ -431,7 +431,27 @@ export function usePOS(): POSHookReturn {
         subtotal: item.price * item.quantity
       }))
 
-      await window.api.sales.create(sale, items)
+      const result = await window.api.sales.create(sale, items)
+
+      // Get the created sale ID for printing
+      const saleId = result?.id || result?.data?.id
+
+      // Auto-print receipt if enabled and sale ID is available
+      if (saleId) {
+        try {
+          const printerConfig = await window.api.printer.getDefault()
+          if (printerConfig.success && printerConfig.config && printerConfig.config.autoPrint) {
+            // Print receipt in background
+            window.api.printer.printReceipt(saleId).catch((error) => {
+              console.error('Auto-print failed:', error)
+              // Don't show error to user, just log it
+            })
+          }
+        } catch (error) {
+          console.error('Failed to check printer config:', error)
+          // Continue with sale completion even if print fails
+        }
+      }
 
       // Prepare sale details for dialog
       const saleDetails = {

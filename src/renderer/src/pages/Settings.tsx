@@ -21,6 +21,7 @@ import InvoiceReceiptSettings from '../components/settings/InvoiceReceiptSetting
 import NotificationSettings from '../components/settings/NotificationSettings'
 import POSSettings from '../components/settings/POSSettings'
 import PricingDiscountSettings from '../components/settings/PricingDiscountSettings'
+import PrinterSettings from '../components/settings/PrinterSettings'
 import ReceiptSettingsForm from '../components/settings/ReceiptSettingsForm'
 import ReportsSettings from '../components/settings/ReportsSettings'
 import SecuritySettings from '../components/settings/SecuritySettings'
@@ -399,6 +400,9 @@ export default function Settings(): React.JSX.Element {
 
       {/* Cash Drawer Settings */}
       {activeTab === 'cash-drawer' && <CashDrawerSettings />}
+
+      {/* Printer Settings */}
+      {activeTab === 'printer' && <PrinterSettings />}
 
       {/* Customer Settings */}
       {activeTab === 'customers' && (

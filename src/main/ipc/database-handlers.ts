@@ -34,6 +34,7 @@ import { setupFeatureLicensingHandlers } from './handlers/feature-licensing-hand
 import { registerHRHandlers } from './handlers/hr-handlers'
 import { setupNotificationHandlers } from './handlers/notification-handlers'
 import { registerPrescriptionHandlers } from './handlers/prescription-handlers'
+import { registerPrinterHandlers } from './handlers/printer-handlers'
 import { registerProductInventoryHandlers } from './handlers/product-inventory-handlers'
 import { registerPurchaseHandlers } from './handlers/purchase-handlers'
 import { registerReportsSettingsHandlers } from './handlers/reports-settings-handlers'
@@ -63,4 +64,5 @@ export function registerDatabaseHandlers(): void {
   setupFeatureLicensingHandlers()
   registerBarcodeHandlers()
   registerCashDrawerHandlers()
+  registerPrinterHandlers()
 }

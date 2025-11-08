@@ -410,6 +410,22 @@ const api = {
     autoConnect: () => ipcRenderer.invoke('cash-drawer:auto-connect'),
     reconnect: () => ipcRenderer.invoke('cash-drawer:reconnect')
   },
+
+  // Receipt Printer
+  printer: {
+    list: () => ipcRenderer.invoke('printer:list'),
+    saveConfig: (config: Record<string, unknown>) =>
+      ipcRenderer.invoke('printer:save-config', config),
+    getConfigs: () => ipcRenderer.invoke('printer:get-configs'),
+    getDefault: () => ipcRenderer.invoke('printer:get-default'),
+    deleteConfig: (id: string) => ipcRenderer.invoke('printer:delete-config', id),
+    test: (printerId: string) => ipcRenderer.invoke('printer:test', printerId),
+    printReceipt: (saleId: string, printerId?: string) =>
+      ipcRenderer.invoke('printer:print-receipt', saleId, printerId),
+    reprintLast: () => ipcRenderer.invoke('printer:reprint-last'),
+    getQueue: (limit?: number) => ipcRenderer.invoke('printer:get-queue', limit)
+  },
+
   // Export Data
   export: {
     products: (options: {

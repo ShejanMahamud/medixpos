@@ -26,6 +26,7 @@ import { addMustChangePassword } from './migrations/add-must-change-password'
 import { addNotificationsTable } from './migrations/add-notifications-table'
 import { addOptimisticLocking } from './migrations/add-optimistic-locking'
 import { addPointsRedeemedToSales } from './migrations/add-points-redeemed-to-sales'
+import { addPrinterTables } from './migrations/add-printer-tables'
 import { migrateProductShelf } from './migrations/add-product-shelf'
 import { addProductStrength } from './migrations/add-product-strength'
 import { migrateProductUnitConversion } from './migrations/add-product-unit-conversion'
@@ -91,6 +92,7 @@ function runMigrations(): void {
       addComprehensiveSettings(sqlite)
       addNotificationsTable(sqlite)
       addOptimisticLocking(sqlite)
+      addPrinterTables(sqlite)
     }
   } catch (error) {
     console.error('Migration error:', error)
