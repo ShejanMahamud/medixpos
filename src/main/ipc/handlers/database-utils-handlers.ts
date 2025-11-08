@@ -272,4 +272,43 @@ export function registerDatabaseUtilsHandlers(): void {
       return { success: false }
     }
   })
+
+  // Check if onboarding/setup is complete
+  ipcMain.handle('setup:isOnboardingComplete', () => {
+    try {
+      const setting = db
+        .select()
+        .from(schema.settings)
+        .where(eq(schema.settings.key, 'onboarding_complete'))
+        .get()
+
+      return setting?.value === 'true'
+    } catch (error) {
+      console.error('Failed to check onboarding status:', error)
+      return false
+    }
+  })
+
+  // Mark onboarding as complete
+  ipcMain.handle('setup:markOnboardingComplete', () => {
+    try {
+      db.insert(schema.settings)
+        .values({
+          id: uuidv4(),
+          key: 'onboarding_complete',
+          value: 'true',
+          description: 'Indicates whether initial onboarding setup is complete'
+        })
+        .onConflictDoUpdate({
+          target: schema.settings.key,
+          set: { value: 'true', updatedAt: sql`CURRENT_TIMESTAMP` }
+        })
+        .run()
+
+      return { success: true }
+    } catch (error) {
+      console.error('Failed to mark onboarding complete:', error)
+      return { success: false }
+    }
+  })
 }

@@ -542,3 +542,22 @@ export const leaveRequests = sqliteTable('leave_requests', {
   createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`),
   updatedAt: text('updated_at').default(sql`CURRENT_TIMESTAMP`)
 })
+
+// Notifications table
+export const notifications = sqliteTable('notifications', {
+  id: text('id').primaryKey(),
+  userId: text('user_id').references(() => users.id), // null for system-wide notifications
+  title: text('title').notNull(),
+  message: text('message').notNull(),
+  type: text('type').notNull(), // 'info', 'success', 'warning', 'error', 'low_stock', 'expiry', 'sale', 'purchase'
+  category: text('category').notNull().default('general'), // 'system', 'inventory', 'sales', 'general', 'alert'
+  priority: text('priority').notNull().default('medium'), // 'low', 'medium', 'high', 'urgent'
+  isRead: integer('is_read', { mode: 'boolean' }).default(false),
+  readAt: text('read_at'),
+  actionUrl: text('action_url'), // Optional URL to navigate when notification is clicked
+  actionText: text('action_text'), // Optional text for action button
+  metadata: text('metadata'), // JSON string for additional data
+  expiresAt: text('expires_at'), // Optional expiration date
+  createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`),
+  updatedAt: text('updated_at').default(sql`CURRENT_TIMESTAMP`)
+})

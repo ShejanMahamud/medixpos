@@ -228,10 +228,60 @@ const api = {
     update: (id: string, data: Record<string, unknown>) =>
       ipcRenderer.invoke('db:leaveRequests:update', id, data)
   },
+  // Notifications
+  notifications: {
+    create: (input: {
+      userId?: string | null
+      title: string
+      message: string
+      type: 'info' | 'success' | 'warning' | 'error' | 'low_stock' | 'expiry' | 'sale' | 'purchase'
+      category?: 'system' | 'inventory' | 'sales' | 'general' | 'alert'
+      priority?: 'low' | 'medium' | 'high' | 'urgent'
+      actionUrl?: string
+      actionText?: string
+      metadata?: Record<string, unknown>
+      expiresAt?: string
+    }) => ipcRenderer.invoke('notifications:create', input),
+    getByUser: (userId: string | null, limit?: number, offset?: number) =>
+      ipcRenderer.invoke('notifications:getByUser', userId, limit, offset),
+    getUnreadCount: (userId: string | null) =>
+      ipcRenderer.invoke('notifications:getUnreadCount', userId),
+    markAsRead: (notificationId: string) =>
+      ipcRenderer.invoke('notifications:markAsRead', notificationId),
+    delete: (notificationId: string) => ipcRenderer.invoke('notifications:delete', notificationId),
+    createSystem: (title: string, message: string, type?: string, priority?: string) =>
+      ipcRenderer.invoke('notifications:createSystem', title, message, type, priority)
+  },
+  // Feature Licensing
+  featureLicensing: {
+    initialize: () => ipcRenderer.invoke('feature-licensing:initialize'),
+    getTier: () => ipcRenderer.invoke('feature-licensing:get-tier'),
+    isFeatureEnabled: (featureId: string) =>
+      ipcRenderer.invoke('feature-licensing:is-feature-enabled', featureId),
+    canAccessPage: (route: string) =>
+      ipcRenderer.invoke('feature-licensing:can-access-page', route),
+    canRenderComponent: (componentName: string) =>
+      ipcRenderer.invoke('feature-licensing:can-render-component', componentName),
+    getFeatureLimitations: (featureId: string) =>
+      ipcRenderer.invoke('feature-licensing:get-feature-limitations', featureId),
+    checkFeatureLimits: (featureId: string, currentUsage: number) =>
+      ipcRenderer.invoke('feature-licensing:check-feature-limits', featureId, currentUsage),
+    getAvailableFeatures: () => ipcRenderer.invoke('feature-licensing:get-available-features'),
+    getBlockedFeatures: () => ipcRenderer.invoke('feature-licensing:get-blocked-features'),
+    getUpgradeSuggestions: (featureId: string) =>
+      ipcRenderer.invoke('feature-licensing:get-upgrade-suggestions', featureId),
+    validatePageAccess: (route: string) =>
+      ipcRenderer.invoke('feature-licensing:validate-page-access', route),
+    getLicenseStatus: () => ipcRenderer.invoke('feature-licensing:get-license-status'),
+    forceRefresh: () => ipcRenderer.invoke('feature-licensing:force-refresh'),
+    refreshStatus: () => ipcRenderer.invoke('feature-licensing:refresh-status')
+  },
   // Initial Setup
   setup: {
     getInitialCredentials: () => ipcRenderer.invoke('setup:getInitialCredentials'),
-    clearInitialCredentials: () => ipcRenderer.invoke('setup:clearInitialCredentials')
+    clearInitialCredentials: () => ipcRenderer.invoke('setup:clearInitialCredentials'),
+    isOnboardingComplete: () => ipcRenderer.invoke('setup:isOnboardingComplete'),
+    markOnboardingComplete: () => ipcRenderer.invoke('setup:markOnboardingComplete')
   },
   auth: {
     invalidateSession: (token: string | null | undefined) =>

@@ -7,6 +7,7 @@
 import { Box, CircularProgress, Container, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
+import FeatureGuard from '../components/FeatureGuard'
 import CustomerReport from '../components/reports/CustomerReport'
 import InventoryReport from '../components/reports/InventoryReport'
 import OverviewReport from '../components/reports/OverviewReport'
@@ -300,14 +301,24 @@ export default function Reports(): React.JSX.Element {
         </div>
       )}
       {reportType === 'inventory' && (
-        <div data-tour="reports-inventory">
-          <InventoryReport reportData={reportData} />
-        </div>
+        <FeatureGuard
+          featureId="advanced_inventory"
+          fallbackMessage="Inventory analytics require the BASIC plan or higher."
+        >
+          <div data-tour="reports-inventory">
+            <InventoryReport reportData={reportData} />
+          </div>
+        </FeatureGuard>
       )}
       {reportType === 'customer' && (
-        <div data-tour="reports-customer">
-          <CustomerReport reportData={reportData} currencySymbol={currencySymbol} />
-        </div>
+        <FeatureGuard
+          featureId="comprehensive_reports"
+          fallbackMessage="Customer analytics require the PRO plan or higher."
+        >
+          <div data-tour="reports-customer">
+            <CustomerReport reportData={reportData} currencySymbol={currencySymbol} />
+          </div>
+        </FeatureGuard>
       )}
     </Container>
   )

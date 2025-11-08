@@ -37,10 +37,12 @@ import {
 } from '@mui/material'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 
+import logo from '../assets/logo.png'
 import { usePermissions } from '../hooks/usePermissions'
 import { useAuthStore } from '../store/authStore'
 import { useSettingsStore } from '../store/settingsStore'
 import { Permission } from '../utils/permissions'
+import { NotificationBell } from './notifications'
 import TourButton from './TourButton'
 
 const drawerWidth = 260
@@ -178,26 +180,30 @@ export default function Layout(): React.JSX.Element {
         {/* Logo Section */}
         <Box sx={{ p: 2.5, borderBottom: '1px solid rgba(255,255,255,0.1)' }} data-tour="logo">
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, px: 0.5 }}>
-            <Avatar
+            <Box
               sx={{
-                width: 44,
-                height: 44,
-                bgcolor: 'white',
-                color: 'primary.main',
-                fontWeight: 'bold',
-                fontSize: '1.25rem',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+                width: 40,
+                height: 40
               }}
             >
-              {(storeName || 'POS').substring(0, 2).toUpperCase()}
-            </Avatar>
-            <Box>
+              <img
+                src={logo}
+                alt="MedixPOS Logo"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'contain'
+                }}
+              />
+            </Box>
+            <Box sx={{ flex: 1 }}>
               <Typography variant="h6" sx={{ fontWeight: 'bold', lineHeight: 1.2 }}>
                 {storeName || 'MedixPOS'}
               </Typography>
-              <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.7)' }}>
-                Pharmacy Management
-              </Typography>
+            </Box>
+            {/* Notifications */}
+            <Box>
+              <NotificationBell />
             </Box>
           </Box>
         </Box>

@@ -5,7 +5,8 @@
  */
 
 import { Box, CircularProgress, Typography } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { useFeatureLicensingStore } from '../store/featureLicensingStore'
 import LicenseActivation from './LicenseActivation'
 
 interface LicenseGuardProps {
@@ -16,6 +17,9 @@ export default function LicenseGuard({ children }: LicenseGuardProps): React.JSX
   const [checking, setChecking] = useState(true)
   const [needsActivation, setNeedsActivation] = useState(false)
   const [licenseValid, setLicenseValid] = useState(false)
+  const initializeFeatureLicensing = useFeatureLicensingStore((state) => state.initialize)
+  const isFeatureLicensingInitialized = useFeatureLicensingStore((state) => state.isInitialized)
+  const initializationPending = useRef(false)
 
   const checkLicense = async (): Promise<void> => {
     try {
@@ -58,6 +62,31 @@ export default function LicenseGuard({ children }: LicenseGuardProps): React.JSX
   useEffect(() => {
     checkLicense()
   }, [])
+
+  useEffect(() => {
+    if (
+      !licenseValid ||
+      needsActivation ||
+      isFeatureLicensingInitialized ||
+      initializationPending.current
+    ) {
+      return
+    }
+
+    initializationPending.current = true
+
+    const initialize = async (): Promise<void> => {
+      try {
+        await initializeFeatureLicensing()
+      } catch (error) {
+        console.error('Failed to initialize feature licensing', error)
+      } finally {
+        initializationPending.current = false
+      }
+    }
+
+    void initialize()
+  }, [initializeFeatureLicensing, isFeatureLicensingInitialized, licenseValid, needsActivation])
 
   const handleActivationSuccess = async (): Promise<void> => {
     setNeedsActivation(false)

@@ -28,7 +28,9 @@ import { registerBankAccountHandlers } from './handlers/bank-account-handlers'
 import { registerCategoryUnitHandlers } from './handlers/category-unit-handlers'
 import { registerCustomerHandlers } from './handlers/customer-handlers'
 import { registerDatabaseUtilsHandlers } from './handlers/database-utils-handlers'
+import { setupFeatureLicensingHandlers } from './handlers/feature-licensing-handlers'
 import { registerHRHandlers } from './handlers/hr-handlers'
+import { setupNotificationHandlers } from './handlers/notification-handlers'
 import { registerPrescriptionHandlers } from './handlers/prescription-handlers'
 import { registerProductInventoryHandlers } from './handlers/product-inventory-handlers'
 import { registerPurchaseHandlers } from './handlers/purchase-handlers'
@@ -55,4 +57,6 @@ export function registerDatabaseHandlers(): void {
   registerReportsSettingsHandlers()
   registerDatabaseUtilsHandlers()
   registerHRHandlers()
+  setupNotificationHandlers()
+  setupFeatureLicensingHandlers()
 }

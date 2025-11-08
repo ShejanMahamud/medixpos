@@ -250,13 +250,210 @@ interface API {
     create: (data: Record<string, unknown>) => Promise<Record<string, unknown>>
     update: (id: string, data: Record<string, unknown>) => Promise<Record<string, unknown>>
   }
+  notifications: {
+    create: (input: {
+      userId?: string | null
+      title: string
+      message: string
+      type: 'info' | 'success' | 'warning' | 'error' | 'low_stock' | 'expiry' | 'sale' | 'purchase'
+      category?: 'system' | 'inventory' | 'sales' | 'general' | 'alert'
+      priority?: 'low' | 'medium' | 'high' | 'urgent'
+      actionUrl?: string
+      actionText?: string
+      metadata?: Record<string, unknown>
+      expiresAt?: string
+    }) => Promise<{
+      success: boolean
+      data?: Record<string, unknown>
+      error?: string
+    }>
+    getByUser: (
+      userId: string | null,
+      limit?: number,
+      offset?: number
+    ) => Promise<{
+      success: boolean
+      data?: Record<string, unknown>[]
+      error?: string
+    }>
+    getUnreadCount: (userId: string | null) => Promise<{
+      success: boolean
+      data?: number
+      error?: string
+    }>
+    markAsRead: (notificationId: string) => Promise<{
+      success: boolean
+      data?: Record<string, unknown>
+      error?: string
+    }>
+    delete: (notificationId: string) => Promise<{
+      success: boolean
+      data?: Record<string, unknown>
+      error?: string
+    }>
+    createSystem: (
+      title: string,
+      message: string,
+      type?: string,
+      priority?: string
+    ) => Promise<{
+      success: boolean
+      data?: Record<string, unknown>
+      error?: string
+    }>
+  }
+  featureLicensing: {
+    initialize: () => Promise<{ success: boolean; error?: string }>
+    getTier: () => Promise<{
+      success: boolean
+      tier?: string
+      tierInfo?: {
+        name: string
+        description: string
+        color: string
+        features: string[]
+        limitations: string[]
+        price?: string
+      }
+      error?: string
+    }>
+    isFeatureEnabled: (featureId: string) => Promise<{
+      success: boolean
+      enabled?: boolean
+      error?: string
+    }>
+    canAccessPage: (route: string) => Promise<{
+      success: boolean
+      accessible?: boolean
+      error?: string
+    }>
+    canRenderComponent: (componentName: string) => Promise<{
+      success: boolean
+      canRender?: boolean
+      error?: string
+    }>
+    getFeatureLimitations: (featureId: string) => Promise<{
+      success: boolean
+      limitations?: {
+        maxProducts?: number
+        maxCustomers?: number
+        maxUsers?: number
+        maxSalesPerDay?: number
+        maxBankAccounts?: number
+        dataRetentionDays?: number
+        reportsAccess?: 'basic' | 'advanced' | 'full'
+        backupFrequency?: 'none' | 'weekly' | 'daily' | 'realtime'
+        supportLevel?: 'community' | 'email' | 'priority' | 'dedicated'
+      }
+      error?: string
+    }>
+    checkFeatureLimits: (
+      featureId: string,
+      currentUsage: number
+    ) => Promise<{
+      success: boolean
+      result?: {
+        withinLimits: boolean
+        limit?: number
+        usage: number
+        message?: string
+      }
+      error?: string
+    }>
+    getAvailableFeatures: () => Promise<{
+      success: boolean
+      features?: Array<{
+        id: string
+        name: string
+        description: string
+        category: string
+        requiredTier: string
+        isCore?: boolean
+        limitations?: Record<string, unknown>
+      }>
+      error?: string
+    }>
+    getBlockedFeatures: () => Promise<{
+      success: boolean
+      features?: Array<{
+        id: string
+        name: string
+        description: string
+        category: string
+        requiredTier: string
+        isCore?: boolean
+        limitations?: Record<string, unknown>
+      }>
+      error?: string
+    }>
+    getUpgradeSuggestions: (featureId: string) => Promise<{
+      success: boolean
+      suggestions?: {
+        requiredTier: string
+        tierInfo: {
+          name: string
+          description: string
+          color: string
+          features: string[]
+          limitations: string[]
+          price?: string
+        }
+        benefits: string[]
+      }
+      error?: string
+    }>
+    validatePageAccess: (route: string) => Promise<{
+      success: boolean
+      result?: {
+        allowed: boolean
+        redirectTo?: string
+        message?: string
+        upgradeInfo?: {
+          requiredTier: string
+          tierInfo: {
+            name: string
+            description: string
+            color: string
+            features: string[]
+            limitations: string[]
+            price?: string
+          }
+          benefits: string[]
+        }
+      }
+      error?: string
+    }>
+    getLicenseStatus: () => Promise<{
+      success: boolean
+      status?: {
+        isActive: boolean
+        tier: string
+        tierInfo: {
+          name: string
+          description: string
+          color: string
+          features: string[]
+          limitations: string[]
+          price?: string
+        }
+        expiresAt?: string
+        daysRemaining?: number
+      }
+      error?: string
+    }>
+    forceRefresh: () => Promise<{ success: boolean; error?: string }>
+    refreshStatus: () => Promise<{ success: boolean; error?: string }>
+  }
   setup: {
     getInitialCredentials: () => Promise<{
       username: string
       password: string
+      createdAt: string
       isFirstSetup: boolean
     } | null>
     clearInitialCredentials: () => Promise<{ success: boolean }>
+    isOnboardingComplete: () => Promise<boolean>
+    markOnboardingComplete: () => Promise<{ success: boolean }>
   }
   auth: {
     invalidateSession: (token: string | null | undefined) => Promise<{ success: boolean }>

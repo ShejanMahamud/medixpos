@@ -6,7 +6,6 @@
 
 import {
   ContentCopy,
-  LocalPharmacy,
   Login as LoginIcon,
   Person,
   Visibility,
@@ -26,9 +25,10 @@ import {
   TextField,
   Typography
 } from '@mui/material'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
+import logo from '../assets/logo.png'
 import ChangePasswordModal from '../components/ChangePasswordModal'
 import { useAuthStore, type AuthenticatedUserResponse } from '../store/authStore'
 
@@ -195,14 +195,22 @@ export default function Login(): React.JSX.Element {
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
-              width: 64,
-              height: 64,
-              bgcolor: 'primary.main',
+              width: 80,
+              height: 80,
               borderRadius: 2,
-              mb: 2
+              mb: 2,
+              overflow: 'hidden'
             }}
           >
-            <LocalPharmacy sx={{ fontSize: 40, color: 'white' }} />
+            <img
+              src={logo}
+              alt="MedixPOS Logo"
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'contain'
+              }}
+            />
           </Box>
           <Typography variant="h4" fontWeight="600" color="text.primary" gutterBottom>
             MedixPOS
