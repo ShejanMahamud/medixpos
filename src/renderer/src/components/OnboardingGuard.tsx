@@ -6,7 +6,6 @@
 
 import { Box, CircularProgress } from '@mui/material'
 import React, { useCallback, useEffect, useState } from 'react'
-import { useSettingsStore } from '../store/settingsStore'
 import OnboardingWizard from './OnboardingWizard'
 
 interface OnboardingGuardProps {
@@ -20,10 +19,17 @@ export default function OnboardingGuard({ children }: OnboardingGuardProps): Rea
   // Check if onboarding is complete or skipped
   const checkOnboardingStatus = useCallback(async () => {
     try {
-      const isComplete = useSettingsStore.getState().getSetting('onboarding_complete')
-      const isSkipped = useSettingsStore.getState().getSetting('onboarding_skipped')
+      // Get settings from database
+      const settings = (await window.api.settings.getAll()) as Array<{
+        key: string
+        value: string
+      }>
+      const settingsMap = new Map(settings.map((s) => [s.key, s.value]))
 
-      if (isComplete === 'true' || isSkipped === 'true') {
+      const isComplete = settingsMap.get('onboarding_complete') === 'true'
+      const isSkipped = settingsMap.get('onboarding_skipped') === 'true'
+
+      if (isComplete || isSkipped) {
         setNeedsOnboarding(false)
       } else {
         setNeedsOnboarding(true)
