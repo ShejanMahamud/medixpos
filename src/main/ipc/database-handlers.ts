@@ -32,7 +32,6 @@ import { registerCashDrawerHandlers } from './handlers/cash-drawer-handlers'
 import { registerCategoryUnitHandlers } from './handlers/category-unit-handlers'
 import { registerCustomerHandlers } from './handlers/customer-handlers'
 import { registerDatabaseUtilsHandlers } from './handlers/database-utils-handlers'
-import { setupFeatureLicensingHandlers } from './handlers/feature-licensing-handlers'
 import { registerHRHandlers } from './handlers/hr-handlers'
 import { setupNotificationHandlers } from './handlers/notification-handlers'
 import { registerPrescriptionHandlers } from './handlers/prescription-handlers'
@@ -58,7 +57,6 @@ export function registerDatabaseHandlers(): void {
   registerCategoryUnitHandlers()
   registerCustomerHandlers()
   registerDatabaseUtilsHandlers()
-  setupFeatureLicensingHandlers()
   registerHRHandlers()
   setupNotificationHandlers()
   registerPrescriptionHandlers()

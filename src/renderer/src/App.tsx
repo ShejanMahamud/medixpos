@@ -15,10 +15,8 @@ import { useSettingsStore } from './store/settingsStore'
 // Components
 import AutoUpdateNotifier from './components/AutoUpdateNotifier'
 import Layout from './components/Layout'
-import LicenseGuard from './components/LicenseGuard'
 import { ToastContainer } from './components/notifications'
 import OnboardingGuard from './components/OnboardingGuard'
-import PageGuard from './components/PageGuard'
 import ProtectedRoute from './components/ProtectedRoute'
 import SessionChecker from './components/SessionChecker'
 import TourManager from './components/TourManager'
@@ -67,7 +65,6 @@ function App(): React.JSX.Element {
   }, [isAuthenticated, loadSettings])
 
   return (
-    <LicenseGuard>
       <HashRouter>
         <Toaster position="top-right" />
         <ToastContainer />
@@ -90,9 +87,7 @@ function App(): React.JSX.Element {
               index
               element={
                 <ProtectedRoute permission="view_dashboard">
-                  <PageGuard pageId="/">
                     <Dashboard />
-                  </PageGuard>
                 </ProtectedRoute>
               }
             />
@@ -100,9 +95,7 @@ function App(): React.JSX.Element {
               path="pos"
               element={
                 <ProtectedRoute permission="create_sale">
-                  <PageGuard pageId="/pos">
                     <POS />
-                  </PageGuard>
                 </ProtectedRoute>
               }
             />
@@ -110,9 +103,7 @@ function App(): React.JSX.Element {
               path="products"
               element={
                 <ProtectedRoute permission="view_products">
-                  <PageGuard pageId="/products">
                     <Products />
-                  </PageGuard>
                 </ProtectedRoute>
               }
             />
@@ -120,9 +111,7 @@ function App(): React.JSX.Element {
               path="categories-units"
               element={
                 <ProtectedRoute permission="view_products">
-                  <PageGuard pageId="/categories-units">
                     <CategoryUnit />
-                  </PageGuard>
                 </ProtectedRoute>
               }
             />
@@ -130,9 +119,7 @@ function App(): React.JSX.Element {
               path="suppliers"
               element={
                 <ProtectedRoute permission="view_products">
-                  <PageGuard pageId="/suppliers">
                     <Suppliers />
-                  </PageGuard>
                 </ProtectedRoute>
               }
             />
@@ -140,9 +127,7 @@ function App(): React.JSX.Element {
               path="supplier-ledger"
               element={
                 <ProtectedRoute permission="view_products">
-                  <PageGuard pageId="/supplier-ledger">
                     <SupplierLedger />
-                  </PageGuard>
                 </ProtectedRoute>
               }
             />
@@ -150,9 +135,7 @@ function App(): React.JSX.Element {
               path="inventory"
               element={
                 <ProtectedRoute permission="view_inventory">
-                  <PageGuard pageId="/inventory">
                     <Inventory />
-                  </PageGuard>
                 </ProtectedRoute>
               }
             />
@@ -160,9 +143,7 @@ function App(): React.JSX.Element {
               path="batches"
               element={
                 <ProtectedRoute permission="view_inventory">
-                  <PageGuard pageId="/batches">
                     <Batches />
-                  </PageGuard>
                 </ProtectedRoute>
               }
             />
@@ -170,9 +151,7 @@ function App(): React.JSX.Element {
               path="expiry-reports"
               element={
                 <ProtectedRoute permission="view_inventory">
-                  <PageGuard pageId="/expiry-reports">
                     <ExpiryReports />
-                  </PageGuard>
                 </ProtectedRoute>
               }
             />
@@ -180,9 +159,7 @@ function App(): React.JSX.Element {
               path="sales"
               element={
                 <ProtectedRoute permission="view_sales">
-                  <PageGuard pageId="/sales">
                     <Sales />
-                  </PageGuard>
                 </ProtectedRoute>
               }
             />
@@ -190,9 +167,7 @@ function App(): React.JSX.Element {
               path="purchases"
               element={
                 <ProtectedRoute permission="view_purchases">
-                  <PageGuard pageId="/purchases">
                     <Purchases />
-                  </PageGuard>
                 </ProtectedRoute>
               }
             />
@@ -200,9 +175,7 @@ function App(): React.JSX.Element {
               path="returns"
               element={
                 <ProtectedRoute permission="view_purchases">
-                  <PageGuard pageId="/returns">
                     <Returns />
-                  </PageGuard>
                 </ProtectedRoute>
               }
             />
@@ -210,9 +183,7 @@ function App(): React.JSX.Element {
               path="customers"
               element={
                 <ProtectedRoute permission="view_customers">
-                  <PageGuard pageId="/customers">
                     <Customers />
-                  </PageGuard>
                 </ProtectedRoute>
               }
             />
@@ -220,9 +191,7 @@ function App(): React.JSX.Element {
               path="prescriptions"
               element={
                 <ProtectedRoute permission="view_customers">
-                  <PageGuard pageId="/prescriptions">
                     <Prescriptions />
-                  </PageGuard>
                 </ProtectedRoute>
               }
             />
@@ -230,9 +199,7 @@ function App(): React.JSX.Element {
               path="bank-accounts"
               element={
                 <ProtectedRoute permission="view_reports">
-                  <PageGuard pageId="/bank-accounts">
                     <BankAccounts />
-                  </PageGuard>
                 </ProtectedRoute>
               }
             />
@@ -240,9 +207,7 @@ function App(): React.JSX.Element {
               path="reports"
               element={
                 <ProtectedRoute permission="view_reports">
-                  <PageGuard pageId="/reports">
                     <Reports />
-                  </PageGuard>
                 </ProtectedRoute>
               }
             />
@@ -250,9 +215,7 @@ function App(): React.JSX.Element {
               path="users"
               element={
                 <ProtectedRoute permission="view_users">
-                  <PageGuard pageId="/users">
                     <Users />
-                  </PageGuard>
                 </ProtectedRoute>
               }
             />
@@ -260,9 +223,7 @@ function App(): React.JSX.Element {
               path="audit-logs"
               element={
                 <ProtectedRoute permission="view_users">
-                  <PageGuard pageId="/audit-logs">
                     <AuditLogs />
-                  </PageGuard>
                 </ProtectedRoute>
               }
             />
@@ -270,16 +231,13 @@ function App(): React.JSX.Element {
               path="settings"
               element={
                 <ProtectedRoute permission="view_settings">
-                  <PageGuard pageId="/settings">
                     <Settings />
-                  </PageGuard>
                 </ProtectedRoute>
               }
             />
           </Route>
         </Routes>
       </HashRouter>
-    </LicenseGuard>
   )
 }
 
