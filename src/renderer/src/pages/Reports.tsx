@@ -8,7 +8,6 @@ import { Box, CircularProgress, Container, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import ExportModal from '../components/export/ExportModal'
-import FeatureGuard from '../components/FeatureGuard'
 import CustomerReport from '../components/reports/CustomerReport'
 import CustomerRFMReport from '../components/reports/CustomerRFMReport'
 import EmployeePerformanceReport from '../components/reports/EmployeePerformanceReport'
@@ -499,76 +498,57 @@ export default function Reports(): React.JSX.Element {
         </div>
       )}
       {reportType === 'inventory' && (
-        <FeatureGuard featureId="advanced_inventory">
-          <div data-tour="reports-inventory">
-            <InventoryReport reportData={reportData} />
+        <div data-tour="reports-inventory">
+          <InventoryReport reportData={reportData} />
           </div>
-        </FeatureGuard>
+        
       )}
       {reportType === 'customer' && (
-        <FeatureGuard featureId="comprehensive_reports">
           <div data-tour="reports-customer">
             <CustomerReport reportData={reportData} currencySymbol={currencySymbol} />
           </div>
-        </FeatureGuard>
       )}
 
       {/* Advanced Reports */}
       {reportType === 'profitMargin' && advancedReportData && (
-        <FeatureGuard featureId="comprehensive_reports">
           <div data-tour="reports-profit-margin">
             <ProfitMarginReport data={advancedReportData} />
           </div>
-        </FeatureGuard>
-      )}
+        )}
       {reportType === 'vendorPerformance' && advancedReportData && (
-        <FeatureGuard featureId="comprehensive_reports">
           <div data-tour="reports-vendor-performance">
             <VendorPerformanceReport data={advancedReportData} />
           </div>
-        </FeatureGuard>
       )}
       {reportType === 'employeePerformance' && advancedReportData && (
-        <FeatureGuard featureId="comprehensive_reports">
           <div data-tour="reports-employee-performance">
             <EmployeePerformanceReport data={advancedReportData} />
           </div>
-        </FeatureGuard>
       )}
       {reportType === 'slowMovingStock' && advancedReportData && (
-        <FeatureGuard featureId="comprehensive_reports">
           <div data-tour="reports-slow-moving-stock">
             <SlowMovingStockReport data={advancedReportData} />
           </div>
-        </FeatureGuard>
       )}
       {reportType === 'paymentMethod' && advancedReportData && (
-        <FeatureGuard featureId="comprehensive_reports">
           <div data-tour="reports-payment-method">
             <PaymentMethodReport data={advancedReportData} />
           </div>
-        </FeatureGuard>
       )}
       {reportType === 'peakHours' && advancedReportData && (
-        <FeatureGuard featureId="comprehensive_reports">
           <div data-tour="reports-peak-hours">
             <PeakHoursReport data={advancedReportData} />
           </div>
-        </FeatureGuard>
       )}
       {reportType === 'customerRFM' && advancedReportData && (
-        <FeatureGuard featureId="comprehensive_reports">
           <div data-tour="reports-customer-rfm">
             <CustomerRFMReport data={advancedReportData} />
           </div>
-        </FeatureGuard>
       )}
       {reportType === 'yearOverYear' && advancedReportData && (
-        <FeatureGuard featureId="comprehensive_reports">
           <div data-tour="reports-year-over-year">
             <YearOverYearReport data={advancedReportData} />
           </div>
-        </FeatureGuard>
       )}
 
       {/* Export Modal - Show sales by default for reports */}

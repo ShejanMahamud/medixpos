@@ -15,6 +15,17 @@ import { registerLicenseHandlers } from './ipc/handlers/license-handlers'
 import { AutoUpdateService } from './services/autoUpdater'
 import { LicenseService } from './services/license'
 
+// Add global error handlers
+process.on('uncaughtException', (error) => {
+  console.error('Uncaught Exception:', error)
+  console.error('Stack:', error.stack)
+})
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise)
+  console.error('Reason:', reason)
+})
+
 // Get the correct path for resources in both dev and production
 function getResourcePath(): string {
   if (process.env.NODE_ENV === 'development' || is.dev) {
@@ -64,9 +75,17 @@ function getIconPath(): string {
 }
 
 function createWindow(): BrowserWindow {
+  console.log('Creating window...')
+  console.log('Platform:', process.platform)
+  console.log('Node ENV:', process.env.NODE_ENV)
+  console.log('Is Dev:', is.dev)
+  
   const iconPath = getIconPath()
+  console.log('Icon path resolved:', iconPath)
+  console.log('Icon exists:', fs.existsSync(iconPath))
 
   // Create the browser window.
+  console.log('Creating BrowserWindow instance...')
   const mainWindow = new BrowserWindow({
     width: 1400,
     height: 900,
@@ -76,18 +95,43 @@ function createWindow(): BrowserWindow {
     title: 'MedixPOS - Professional Pharmacy Management',
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
-      sandbox: false
+      sandbox: false,
+      devTools: true
     }
   })
 
+  console.log('Window created, setting up event handlers...')
+  console.log('Window ID:', mainWindow.id)
+
   mainWindow.on('ready-to-show', () => {
+    console.log('Window is ready to show!')
     mainWindow.show()
+    console.log('Window shown!')
 
     // Set taskbar icon for Windows (must be after window is shown)
     if (process.platform === 'win32' && fs.existsSync(iconPath)) {
       const icon = nativeImage.createFromPath(iconPath)
       mainWindow.setIcon(icon)
       app.setAppUserModelId('com.johuniq.medixpos')
+    }
+  })
+
+  mainWindow.on('closed', () => {
+    console.log('Window closed!')
+  })
+
+  mainWindow.webContents.on('did-fail-load', (event, errorCode, errorDescription) => {
+    console.error('Failed to load:', errorCode, errorDescription)
+  })
+
+  mainWindow.webContents.on('did-finish-load', () => {
+    console.log('Window loaded successfully!')
+    
+    // On Linux/Wayland, ready-to-show may not fire reliably
+    // Show the window after content loads as a fallback
+    if (process.platform === 'linux' && !mainWindow.isVisible()) {
+      console.log('Forcing window show on Linux (Wayland workaround)')
+      mainWindow.show()
     }
   })
 
@@ -98,13 +142,30 @@ function createWindow(): BrowserWindow {
 
   // HMR for renderer base on electron-vite cli.
   // Load the remote URL for development or the local html file for production.
+  console.log('Loading renderer...')
+  console.log('ELECTRON_RENDERER_URL:', process.env['ELECTRON_RENDERER_URL'])
+  
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
-    mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL'])
+    console.log('Loading dev URL:', process.env['ELECTRON_RENDERER_URL'])
+    mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL']).catch(err => {
+      console.error('Failed to load dev URL:', err)
+    })
   } else {
-    mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
+    const htmlPath = join(__dirname, '../renderer/index.html')
+    console.log('Loading file:', htmlPath)
+    console.log('File exists:', fs.existsSync(htmlPath))
+    mainWindow.loadFile(htmlPath).catch(err => {
+      console.error('Failed to load file:', err)
+    })
   }
 
   return mainWindow
+}
+
+// Disable GPU acceleration on Linux to avoid crashes (must be before app.whenReady)
+if (process.platform === 'linux') {
+  app.disableHardwareAcceleration()
+  console.log('Hardware acceleration disabled for Linux')
 }
 
 // This method will be called when Electron has finished
@@ -220,6 +281,7 @@ app.whenReady().then(async () => {
 
   try {
     const window = createWindow()
+    console.log('Window creation completed successfully')
 
     // Initialize auto-updater in production
     if (!is.dev && process.env.NODE_ENV !== 'development') {
@@ -229,6 +291,7 @@ app.whenReady().then(async () => {
     }
   } catch (error) {
     console.error('Failed to create window:', error)
+    console.error('Error stack:', error instanceof Error ? error.stack : 'No stack trace')
     dialog.showErrorBox(
       'Window Creation Error',
       `Failed to create application window:\n\n${error instanceof Error ? error.message : String(error)}`

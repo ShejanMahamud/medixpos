@@ -4,8 +4,8 @@
  * Unauthorized use, copying, or distribution is strictly prohibited.
  */
 
-import { electronAPI } from '@electron-toolkit/preload'
-import { contextBridge, ipcRenderer } from 'electron'
+import { electronAPI } from '@electron-toolkit/preload';
+import { contextBridge, ipcRenderer } from 'electron';
 
 // Custom APIs for renderer
 const api = {
